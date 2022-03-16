@@ -1,0 +1,58 @@
+[
+  {
+    "id": "states_choropleth",
+    "region_id": "states",
+    "metric_id": "*",
+    "subgroup_id": "*",
+    "year": "*",
+    "type": "choropleth",
+    "source_id": "states_choropleth",
+    "source_url": "https://spi-tilesets.s3.us-west-2.amazonaws.com/v0.0.1/states/{z}/{x}/{y}.pbf",
+    "source_type": "vector_tiles",
+    "source_layer": "states",
+    "min_zoom": 1,
+    "max_zoom": 8
+  },
+  {
+    "id": "cities_choropleth",
+    "region_id": "cities",
+    "metric_id": "*",
+    "subgroup_id": "*",
+    "year": "*",
+    "type": "choropleth",
+    "source_id": "cities_choropleth",
+    "source_url": "https://spi-tilesets.s3.us-west-2.amazonaws.com/v0.0.1/cities/{z}/{x}/{y}.pbf",
+    "source_type": "vector_tiles",
+    "source_layer": "cities",
+    "min_zoom": 7,
+    "max_zoom": 11
+  },
+  {
+    "id": "cities_bubble",
+    "region_id": "*",
+    "metric_id": "*",
+    "subgroup_id": "*",
+    "year": "*",
+    "type": "bubble",
+    "source_id": "cities_choropleth",
+    "source_url": "https://spi-tilesets.s3.us-west-2.amazonaws.com/v0.0.1/cities/{z}/{x}/{y}.pbf",
+    "source_type": "vector_tiles",
+    "source_layer": "cities",
+    "min_zoom": 3,
+    "max_zoom": 8
+  },
+  {
+    "id": "tracts_choropleth",
+    "region_id": "tracts",
+    "metric_id": "*",
+    "subgroup_id": "*",
+    "year": "*",
+    "type": "choropleth",
+    "source_id": "tracts_choropleth",
+    "source_url": "https://spi-tilesets.s3.us-west-2.amazonaws.com/v0.0.1/tracts/{z}/{x}/{y}.pbf",
+    "source_type": "vector_tiles",
+    "source_layer": "tracts",
+    "min_zoom": 11,
+    "max_zoom": 20
+  }
+]

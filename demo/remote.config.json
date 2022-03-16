@@ -1,0 +1,12 @@
+{
+  "app": "/app.json",
+  "metrics": "/metrics.json",
+  "subgroups": "/subgroups.json",
+  "regions": "/regions.json",
+  "dataSources": "/dataSources.json",
+  "scales": "/scales.json",
+  "mapLayers": "/mapLayers.json",
+  "lang": {
+    "en": "/en.json"
+  }
+}

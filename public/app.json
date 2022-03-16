@@ -1,0 +1,31 @@
+{
+  "default_choropleth_colors": [
+    "#498ABA",
+    "#6AB1CF",
+    "#8ECAC4",
+    "#B3DBB8",
+    "#D2EAC8"
+  ],
+  "default_bubble_colors": "#f00",
+  "default_region": "states",
+  "default_choropleth_metric": "ws_impervious",
+  "default_bubble_metric": null,
+  "default_subgroup": "",
+  "default_year": null,
+  "default_viewport": {
+    "center": [-98.5795, 39.8283],
+    "zoom": 3.5
+  },
+  "hover_color": "#f00",
+  "location_colors": [
+    "#1b9e77",
+    "#d95f02",
+    "#7570b3",
+    "#e7298a",
+    "#66a61e",
+    "#e6ab02",
+    "#a6761d",
+    "#666666"
+  ],
+  "years": []
+}

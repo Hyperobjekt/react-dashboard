@@ -1,0 +1,38 @@
+[
+  {
+    "id": "default",
+    "region_id": "*",
+    "metric_id": "*",
+    "subgroup_id": "*",
+    "year": "*",
+    "type": "choropleth",
+    "scale": "continuous",
+    "extent_data": "/assets/data/{{region_id}}-extents.csv",
+    "extent_min_key": "min",
+    "extent_max_key": "max"
+  },
+  {
+    "id": "bhn",
+    "region_id": "*",
+    "metric_id": "bhn",
+    "subgroup_id": "*",
+    "year": "*",
+    "type": "choropleth"
+  },
+  {
+    "id": "fow",
+    "region_id": "*",
+    "metric_id": "fow",
+    "subgroup_id": "*",
+    "year": "*",
+    "type": "choropleth"
+  },
+  {
+    "id": "opp",
+    "region_id": "*",
+    "metric_id": "opp",
+    "subgroup_id": "*",
+    "year": "*",
+    "type": "choropleth"
+  }
+]
