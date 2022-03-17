@@ -1,6 +1,6 @@
 import { useAccessor, useMapLayersConfig } from "../../Config";
 import { useBubbleScale } from "../../hooks";
-import { _getBubbleLayers, _getChoroplethLayers } from "../utils";
+import { getBubbleLayers } from "../utils";
 import useBubbleContext from "./useBubbleContext";
 
 export default function useBubbleMapLayers() {
@@ -11,6 +11,6 @@ export default function useBubbleMapLayers() {
   const bubbleMapLayerConfig = useMapLayersConfig(bubbleContext);
   console.log(bubbleMapLayerConfig);
   return bubbleMapLayerConfig
-    .map((config) => _getBubbleLayers(bubbleVarName, bubbleScale, config))
+    .map((config) => getBubbleLayers(bubbleVarName, bubbleScale, config))
     .flat();
 }

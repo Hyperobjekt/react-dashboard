@@ -18,7 +18,6 @@ import {
   useBubbleScale,
   useChoroplethMapLayerContext,
   getChoroplethLayers,
-  _getChoroplethLayers,
 } from "../src";
 import useAccessor from "../src/Config/hooks/useAccessor";
 import useBubbleMapLayers from "../src/Map/hooks/useBubbleMapLayers";
@@ -36,7 +35,7 @@ function Json() {
   const choroplethMapLayerConfig = useMapLayersConfig(choroplethContext);
   const choropethMapLayers = choroplethMapLayerConfig
     .map((config) =>
-      _getChoroplethLayers(choroplethVarName, choroplethScale, config)
+      getChoroplethLayers(choroplethVarName, choroplethScale, config)
     )
     .flat();
   // bubble hooks

@@ -1,6 +1,6 @@
 import { useAccessor, useMapLayersConfig } from "../../Config";
 import { useChoroplethScale } from "../../hooks";
-import { _getChoroplethLayers } from "../utils";
+import { getChoroplethLayers } from "../utils";
 import useChoroplethContext from "./useChoroplethContext";
 
 export default function useChoroplethMapLayers() {
@@ -12,7 +12,7 @@ export default function useChoroplethMapLayers() {
   console.log(choroplethMapLayerConfig);
   return choroplethMapLayerConfig
     .map((config) =>
-      _getChoroplethLayers(choroplethVarName, choroplethScale, config)
+      getChoroplethLayers(choroplethVarName, choroplethScale, config)
     )
     .flat();
 }

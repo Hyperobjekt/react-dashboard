@@ -234,57 +234,6 @@ export const getChoroplethHoverLayers = ({
 };
 
 /**
- * Returns array of layer styles for choropleth selected outline layer
- * @param {LayerContext} context
- * @returns {Array<mapboxgl.Layer>} [mapboxgl.Layer](https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/)
- */
-export const getChoroplethSelectedLayers = (context) => {
-  const {
-    region_id: region,
-    selected,
-    beforeId = "road-label-simple",
-  } = context;
-  const selectedIds = selected.map((f) => f?.properties?.GEOID);
-  // reduce selected features into a "case" expression to color features based on GEOID and color property
-  const caseRules = selected.reduce(
-    (rules, f, i) => {
-      rules.push(["==", ["get", "GEOID"], f.properties.GEOID]);
-      rules.push(f.properties.color);
-      // last color is default, which technically should never be used (because of the `filter`)
-      if (i === selected.length - 1) rules.push("#ccc");
-      return rules;
-    },
-    ["case"]
-  );
-  return [
-    {
-      id: `${region}-selectedCasing`,
-      source: `${region}_choropleth`,
-      "source-layer": region,
-      type: "line",
-      filter: ["in", "GEOID", ...selectedIds],
-      paint: {
-        "line-color": "#fff",
-        "line-width": 5,
-      },
-      beforeId,
-    },
-    {
-      id: `${region}-selectedOutline`,
-      source: `${region}_choropleth`,
-      "source-layer": region,
-      type: "line",
-      filter: ["in", "GEOID", ...selectedIds],
-      paint: {
-        "line-color": caseRules.length > 2 ? caseRules : "transparent",
-        "line-width": 3,
-      },
-      beforeId,
-    },
-  ];
-};
-
-/**
  * Returns layer style for choropleth fill layer
  * @param {LayerContext} context
  * @returns {Array<mapboxgl.Layer>} [layer]](https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/)
@@ -388,34 +337,7 @@ export const getBubbleOutlineLayer = ({
   };
 };
 
-/**
- * Returns a series of layers for choropleths.
- * Includes the fill layer, outline layer, and layers for hover / selected states.
- * @param {*} layerContext
- * @returns
- */
-export const getChoroplethLayers = (layerContext) => {
-  return [];
-  // const choroplethFillLayers = getChoroplethFillLayers(layerContext);
-  // const choroplethOutlineLayers = getChoroplethOutlineLayers(layerContext);
-  // const choroplethHoverLayers = getChoroplethHoverLayers(layerContext);
-  // const choroplethSelectedLayers = getChoroplethSelectedLayers(layerContext);
-  // return [
-  //   ...choroplethFillLayers,
-  //   ...choroplethOutlineLayers,
-  //   ...choroplethHoverLayers,
-  //   ...choroplethSelectedLayers,
-  // ];
-};
-
-export const getBubbleLayers = (bubbleLayerContext) => {
-  return [];
-  // const bubbleFillLayers = getBubbleFillLayers(bubbleLayerContext);
-  // const bubbleOutlineLayers = getBubbleOutlineLayers(bubbleLayerContext);
-  // return [...bubbleFillLayers, ...bubbleOutlineLayers];
-};
-
-export function _getChoroplethLayers(varName, scale, layerConfig) {
+export function getChoroplethLayers(varName, scale, layerConfig) {
   const {
     source_id,
     source_layer,
@@ -430,12 +352,15 @@ export function _getChoroplethLayers(varName, scale, layerConfig) {
     hover_linewidth = 2,
     casing_color = "#fff",
     casing_linewidth = 4,
+    beforeId,
+    outlineBeforeId,
   } = layerConfig;
   const baseLayer = (() => {
     const result = { source: source_id };
     if (source_layer) result["source-layer"] = source_layer;
     if (min_zoom) result["minzoom"] = min_zoom;
     if (max_zoom) result["maxzoom"] = max_zoom;
+    if (beforeId) result["beforeId"] = beforeId;
     return result;
   })();
   const {
@@ -476,7 +401,9 @@ export function _getChoroplethLayers(varName, scale, layerConfig) {
     varName,
     lineColor,
     lineWidth,
-    baseLayer,
+    baseLayer: outlineBeforeId
+      ? { ...baseLayer, beforeId: outlineBeforeId }
+      : baseLayer,
   });
   const hoverLayers = getChoroplethHoverLayers({
     varName,
@@ -484,13 +411,14 @@ export function _getChoroplethLayers(varName, scale, layerConfig) {
     lineWidth: hover_linewidth,
     casingColor: casing_color,
     casingWidth: casing_linewidth,
-    baseLayer,
+    baseLayer: outlineBeforeId
+      ? { ...baseLayer, beforeId: outlineBeforeId }
+      : baseLayer,
   });
-  console.log("choroe", fillLayer);
   return [fillLayer, outlineLayer, ...hoverLayers];
 }
 
-export function _getBubbleLayers(varName, scale, layerConfig) {
+export function getBubbleLayers(varName, scale, layerConfig) {
   const {
     source_id,
     source_layer,
@@ -501,10 +429,8 @@ export function _getBubbleLayers(varName, scale, layerConfig) {
     line_color,
     na_line_color = "#ccc",
     na_fill_color = "#eee",
-    hover_color = "#f00",
-    hover_linewidth = 2,
-    casing_color = "#fff",
-    casing_linewidth = 4,
+    min_zoom_size,
+    max_zoom_size,
   } = layerConfig;
   const baseLayer = (() => {
     const result = { source: source_id };
@@ -542,7 +468,35 @@ export function _getBubbleLayers(varName, scale, layerConfig) {
     fillColorExpression,
     na_fill_color
   );
-  const circleRadius = getCaseExpression(varName, sizeSteps, 2);
+  const circleRadius = [
+    "interpolate",
+    ["linear"],
+    ["zoom"],
+    min_zoom,
+    [
+      "case",
+      ["!=", ["get", varName], null],
+      [
+        "interpolate",
+        ["linear"],
+        ["get", varName],
+        ...getLinearRamp(extent, min_zoom_size),
+      ],
+      1,
+    ],
+    max_zoom,
+    [
+      "case",
+      ["!=", ["get", varName], null],
+      [
+        "interpolate",
+        ["linear"],
+        ["get", varName],
+        ...getLinearRamp(extent, max_zoom_size),
+      ],
+      6,
+    ],
+  ];
   console.log({ circleColor, circleRadius, fillSteps });
   const lineColorExpression =
     line_color === "auto"
