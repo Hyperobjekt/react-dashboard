@@ -3,3 +3,5 @@ export { default as useChoroplethMapLayerContext } from "./useChoroplethMapLayer
 export { default as useChoroplethContext } from "./useChoroplethContext";
 export { default as useBubbleLayerConfig } from "./useBubbleLayerConfig";
 export { default as useBubbleContext } from "./useBubbleContext";
+export { default as useChoroplethMapLayers } from "./useChoroplethMapLayers";
+export { default as useBubbleMapLayers } from "./useBubbleMapLayers";
