@@ -1,4 +1,4 @@
-# @hyperobjekt/dash
+# @hyperobjekt/react-dashboard
 
 This package provides sensible defaults for dashboard style apps. Functionality includes:
 
