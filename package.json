@@ -1,7 +1,16 @@
 {
-  "name": "@hyperobjekt/dash",
+  "name": "@hyperobjekt/react-dashboard",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "files": [
+    "dist"
+  ],
+  "module": "./dist/HypReactDashboard.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/HypReactDashboard.es.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -15,7 +24,6 @@
     "d3-format": "^3.1.0",
     "d3-time-format": "^4.1.0",
     "mustache": "^4.2.0",
-    "prop-types": "^15.8.1",
     "react-query": "^3.34.16",
     "zustand": "^3.7.1"
   },
@@ -28,7 +36,8 @@
     "react-dom": "^17.0.0",
     "react-json-view": "^1.21.3",
     "react-map-gl": "^7.0.9",
-    "vite": "^2.8.0"
+    "vite": "^2.8.0",
+    "prop-types": "^15.8.1"
   },
   "peerDependencies": {
     "@hyperobjekt/mapgl": "^1.1.7",
