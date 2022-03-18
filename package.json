@@ -1,6 +1,6 @@
 {
   "name": "@hyperobjekt/react-dashboard",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "files": [
     "dist"
   ],
@@ -31,12 +31,12 @@
     "@hyperobjekt/scales": "^2.1.2",
     "@vitejs/plugin-react": "^1.0.7",
     "mapbox-gl": "^2.7.0",
+    "prop-types": "^15.8.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-json-view": "^1.21.3",
     "react-map-gl": "^7.0.9",
-    "vite": "^2.8.0",
-    "prop-types": "^15.8.1"
+    "vite": "^2.8.0"
   },
   "peerDependencies": {
     "@hyperobjekt/mapgl": "^1.1.7",
