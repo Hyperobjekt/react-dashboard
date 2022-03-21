@@ -14,6 +14,7 @@ const PRECISION_FORMATS = {
   10000: format(".2~s"), // 2 sig figs, use SI prefix
   100000: format(".3~s"), // 3 sig figs, use SI prefix
   1000000: format(".3~s"), // 3 sig figs, use SI prefix
+  10000000: format(".3~s"), // 3 sig figs, use SI prefix
 };
 
 /**
@@ -23,13 +24,14 @@ export const autoFormatNumber = (num) => {
   num = Number(num);
   const precisionKeys = Object.keys(PRECISION_FORMATS);
   const intervals = precisionKeys.map((k) => Number(k));
+  // use largest formatter if number is larger than largest interval
+  if (num > 10000000) return PRECISION_FORMATS[10000000](num);
+  // loop through precision intervals and return formatter if number is within interval
   for (let i = 0; i < intervals.length; i++) {
     if (num < intervals[i]) {
       return PRECISION_FORMATS[precisionKeys[i]](num);
     }
   }
-  // use largest formatter if no match
-  return PRECISION_FORMATS[precisionKeys[precisionKeys.length - 1]](num);
 };
 
 export const formatInteger = format(",d"); // 123
