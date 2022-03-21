@@ -4,15 +4,16 @@ import { useCurrentContext } from "../../hooks";
 /**
  * Returns a context object for the bubble based on current dashboard state
  */
-export default function useBubbleContext() {
-  const { bubbleMetric, subgroup, region, year } = useCurrentContext();
+export default function useBubbleContext(overrides) {
+  const { bubbleMetric, subgroup_id, region_id, year } = useCurrentContext();
   return useMemo(() => {
+    overrides = overrides || {};
     return {
       metric_id: bubbleMetric,
-      subgroup_id: subgroup,
-      region_id: region,
+      subgroup_id,
+      region_id,
       year,
       type: "bubble",
     };
-  }, [bubbleMetric, subgroup, region, year]);
+  }, [bubbleMetric, subgroup_id, region_id, year, overrides]);
 }

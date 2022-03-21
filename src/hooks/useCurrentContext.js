@@ -18,8 +18,8 @@ export default function useCurrentContext() {
     return {
       bubbleMetric,
       choroplethMetric,
-      subgroup,
-      region,
+      subgroup_id: subgroup,
+      region_id: region,
       year,
     };
   }, [bubbleMetric, choroplethMetric, subgroup, region, year]);
