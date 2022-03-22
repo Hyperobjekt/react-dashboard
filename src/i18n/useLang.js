@@ -19,7 +19,10 @@ export default function useLang(keys, context) {
     const lang = dict[language];
     const values = mapKeys.map((key) => {
       key = key.toUpperCase();
-      if (!lang[key]) return key;
+      if (!lang[key]) {
+        console.debug("useLang: key not found", key);
+        return "";
+      }
       if (!context) return lang[key];
       return interpolateString(lang[key], context);
     });
