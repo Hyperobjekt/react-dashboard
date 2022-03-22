@@ -1,6 +1,5 @@
 import create from "zustand";
-
-const areEqual = (a, b) => a.properties.GEOID === b.properties.GEOID;
+import { areEqual } from "./utils";
 
 /**
  * This store contains active selections for the dashboard

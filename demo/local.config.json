@@ -288,7 +288,12 @@
       "beforeId": "settlement-subdivision-label"
     }
   ],
-  "dataSources": [],
+  "dataSources": [
+    {
+      "type": "location",
+      "endpoint": "https://evictionlab.org/data/{{GEOID:2}}/{{region_id}}.csv"
+    }
+  ],
   "scales": [
     {
       "id": "default_choropleth",

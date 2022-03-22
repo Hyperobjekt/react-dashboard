@@ -85,3 +85,28 @@ export const getBlockGroupFromGeoid = (geoid) => {
   if (typeof geoid !== "string" || geoid.length < 12) return null;
   return geoid.substring(0, 12);
 };
+
+/**
+ * Returns true if features have the same GEOID
+ * @param {*} a
+ * @param {*} b
+ * @returns
+ */
+export const areEqual = (a, b) => a.properties.GEOID === b.properties.GEOID;
+
+/**
+ *
+ * @param {*} usedColors
+ * @param {*} availableColors
+ * @returns
+ */
+export const getNextColor = (usedColors, availableColors) => {
+  // find and unused color and return if it exists
+  const nextUnusedColor = availableColors.find((c) => !usedColors.includes(c));
+  if (nextUnusedColor) return nextUnusedColor;
+  // all colors are used, loop around to the next color after the last used color
+  const lastColor = usedColors[usedColors.length - 1];
+  const colorIndex = availableColors.indexOf(lastColor);
+  const nextColorIndex = (colorIndex + 1) % availableColors.length;
+  return availableColors[nextColorIndex];
+};
