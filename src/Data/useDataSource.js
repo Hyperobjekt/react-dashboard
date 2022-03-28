@@ -5,10 +5,11 @@ import { fetchDataSource } from "./utils";
 
 /**
  * Returns react-query result for the provided data source.
- * @param {object} dataSource a data source config entry
- * @param {object} options (optional) context for URL interpolation, parser function for returned data.
+ * @param {string} url a URL to fetch data from (either CSV or JSON)
+ * @param {function} parser (optional) a function that parses a CSV row or JSON data (default: [d3.autoType](https://github.com/d3/d3-dsv#autoType))
+ * @returns {object} `useQuery` result (see [react-query docs](https://react-query.tanstack.com/reference/useQuery))
  */
-export default function useDataSource(url, parser = autoType) {
+function useDataSource(url, parser = autoType) {
   return useQuery(
     url,
     async () => {
@@ -21,3 +22,5 @@ export default function useDataSource(url, parser = autoType) {
     }
   );
 }
+
+export default useDataSource;

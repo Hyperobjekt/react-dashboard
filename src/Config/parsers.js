@@ -1,6 +1,6 @@
 import { autoType } from "d3-dsv";
 import { getFormatter } from "../Formatters";
-import { parseId, parseValues, parseValue, PASS_THROUGH } from "../Parsers";
+import { parseId, parseValues, parseValue, PASS_THROUGH } from "../Data";
 
 // Default parsers for all available types of config
 const DEFAULT_PARSERS = {
