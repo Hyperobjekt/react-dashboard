@@ -1,6 +1,11 @@
 # Changelog
 
-## [0.4.0] - 2022-03-024
+## [0.4.1] - 2022-03-28
+
+- chore: add API docs for location module
+- fix: add alias hooks for hovered and selected location
+
+## [0.4.0] - 2022-03-24
 
 - feat: `useLocationData` and `useLocationFeature` now allow a number as an argument to limit the number of locations
 
