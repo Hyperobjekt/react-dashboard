@@ -2,10 +2,10 @@ import useLocationFeature from "./useLocationFeature";
 
 /**
  * Returns the feature properties for a location
- * @param {string|number} prop - optional string with the id of the location to return, or number to return latest `n` feature data
+ * @param {string|number} prop optional string with the id of the location to return, or number to return latest `n` feature data
  * @returns {Array|Object}
  */
-export default function useLocationData(prop) {
+function useLocationData(prop) {
   const features = useLocationFeature(prop);
   if (Array.isArray(features)) return features.map((f) => f?.properties);
   if (typeof features === "object") return features?.properties;
@@ -13,3 +13,5 @@ export default function useLocationData(prop) {
   console.warn("useLocationData: unexpected value for location feature");
   return features;
 }
+
+export default useLocationData;

@@ -2,7 +2,15 @@ import create from "zustand";
 import { areEqual } from "./utils";
 
 /**
- * This store contains active selections for the dashboard
+ * A [zustand](https://github.com/pmndrs/zustand/blob/main/readme.md) store that contains active selections for the dashboard.
+ *
+ * It is recommended that you use the provided hooks instead of accessing the store directly.  However, the store can be accessed directly if desired.  Be sure to follow the [zustand conventions](https://github.com/pmndrs/zustand/blob/main/readme.md#selecting-multiple-state-slices) for accessing store values.
+ *
+ * The store contains the following keys:
+ * - `selected`: an array of selected locations
+ * - `addSelected`: a function that adds a location to the selected locations
+ * - `removeSelected`: a function that removes a location from the selected locations
+ * - `isSelected`: a function that returns true if the provided feature is a selected location.
  */
 export const useLocationStore = create((set, get) => ({
   selected: [],

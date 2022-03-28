@@ -3,10 +3,10 @@ import useLocationState from "./useLocationState";
 
 /**
  * Returns an array of selected location features.
- * @param {string|number} prop - optional id to return a specific location, or number to return latest `n` features
+ * @param {string|number} prop optional id to return a specific location, or number to return latest `n` features
  * @returns {Array<MapFeature>|MapFeature}
  */
-export default function useLocationFeature(prop) {
+function useLocationFeature(prop) {
   const features = useLocationState("selected");
   // no location id or limit provided, return all features
   if (!prop) return features;
@@ -20,3 +20,5 @@ export default function useLocationFeature(prop) {
   );
   return features;
 }
+
+export default useLocationFeature;

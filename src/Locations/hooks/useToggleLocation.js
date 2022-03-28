@@ -9,7 +9,7 @@ import { areEqual, getNextColor } from "../utils";
  * it will be removed from the list.
  * @returns {function}
  */
-export default function useToggleLocation() {
+function useToggleLocation() {
   const locationColors = useAppConfig("location_colors");
   const selected = useLocationStore((state) => state.selected);
   const addSelected = useLocationStore((state) => state.addSelected);
@@ -26,3 +26,5 @@ export default function useToggleLocation() {
     [selected, locationColors, addSelected, removeSelected]
   );
 }
+
+export default useToggleLocation;

@@ -22,8 +22,8 @@ export const getRegionFromGeoid = (geoid) => {
 
 /**
  * Returns the parent identifiers for a given geoid
- * @param {*} geoid
- * @returns
+ * @param {string} geoid
+ * @returns {{state: string, county: string, tract: string, city: string, bg: string}}
  */
 export const getLocationContextFromGeoid = (geoid) => {
   if (typeof geoid !== "string" || geoid.length < 2) return {};
@@ -38,8 +38,8 @@ export const getLocationContextFromGeoid = (geoid) => {
 
 /**
  * Returns the state portion of a geoid.
- * @param {*} geoid
- * @returns
+ * @param {string} geoid
+ * @returns {string}
  */
 export const getStateFromGeoid = (geoid) => {
   if (typeof geoid !== "string" || geoid.length < 2) return null;
@@ -48,8 +48,8 @@ export const getStateFromGeoid = (geoid) => {
 
 /**
  * Returns the county portion for a geoid.
- * @param {*} geoid
- * @returns
+ * @param {string} geoid
+ * @returns {string}
  */
 export const getCountyFromGeoid = (geoid) => {
   if (typeof geoid !== "string" || geoid.length < 5) return null;
@@ -58,8 +58,8 @@ export const getCountyFromGeoid = (geoid) => {
 
 /**
  * Returns the tract portion of a geoid
- * @param {*} geoid
- * @returns
+ * @param {string} geoid
+ * @returns {string}
  */
 export const getTractFromGeoid = (geoid) => {
   if (typeof geoid !== "string" || geoid.length < 11) return null;
@@ -68,8 +68,8 @@ export const getTractFromGeoid = (geoid) => {
 
 /**
  * Returns the city portion for a geoid.
- * @param {*} geoid
- * @returns
+ * @param {string} geoid
+ * @returns {string}
  */
 export const getCityFromGeoid = (geoid) => {
   if (typeof geoid !== "string" || geoid.length < 8) return null;
@@ -78,8 +78,8 @@ export const getCityFromGeoid = (geoid) => {
 
 /**
  * Returns the block group portion for a geoid.
- * @param {*} geoid
- * @returns
+ * @param {string} geoid
+ * @returns {string}
  */
 export const getBlockGroupFromGeoid = (geoid) => {
   if (typeof geoid !== "string" || geoid.length < 12) return null;
@@ -88,17 +88,17 @@ export const getBlockGroupFromGeoid = (geoid) => {
 
 /**
  * Returns true if features have the same GEOID
- * @param {*} a
- * @param {*} b
- * @returns
+ * @param {GeoJsonFeature} a
+ * @param {GeoJsonFeature} b
+ * @returns {boolean}
  */
 export const areEqual = (a, b) => a.properties.GEOID === b.properties.GEOID;
 
 /**
- *
- * @param {*} usedColors
- * @param {*} availableColors
- * @returns
+ * Gets the next available color when given an array of used colors and an array of all available colors.
+ * @param {string[]} usedColors
+ * @param {string[]} availableColors
+ * @returns {string}
  */
 export const getNextColor = (usedColors, availableColors) => {
   // find and unused color and return if it exists

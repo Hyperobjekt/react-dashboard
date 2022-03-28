@@ -5,3 +5,5 @@ export { default as useRemoveLocation } from "./useRemoveLocation";
 export { default as useLocationState } from "./useLocationState";
 export { default as useLocationFeature } from "./useLocationFeature";
 export { default as useLocationData } from "./useLocationData";
+export { default as useHoveredLocation } from "./useHoveredLocation";
+export { default as useSelectedLocation } from "./useSelectedLocation";
