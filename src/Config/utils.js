@@ -53,7 +53,7 @@ export async function loadConfig(url, options = {}) {
  * @param {string} actualValue
  * @returns {boolean} true if the value matches the config value
  */
-export const isMatch = (configValue, actualValue) => {
+export function isMatch(configValue, actualValue) {
   // config value should be a string or array of strings
   if (typeof configValue !== "string" && !Array.isArray(configValue))
     return false;
@@ -61,7 +61,7 @@ export const isMatch = (configValue, actualValue) => {
   if (configValue === actualValue) return true; // values equal
   if (Array.isArray(configValue)) return configValue.includes(actualValue);
   return false;
-};
+}
 
 /**
  * Returns the entry that is the most specific match for the provided context.
@@ -70,7 +70,7 @@ export const isMatch = (configValue, actualValue) => {
  * @param {Array<string>} keys - The keys to match against (optional).
  * @returns {object} A matching entry with the fewest wildcard matches.
  */
-export const getBestMatch = (context = {}, entries = [], keys) => {
+export function getBestMatch(context = {}, entries = [], keys) {
   if (entries.length === 0) return null; // return if no entries or no match keys
   keys = keys || getMutualKeys(context, entries[0]); // use provided keys or fallback to mutual keys in context and first entry
   if (!keys || keys.length === 0) return null; // return if no entries or no match keys
@@ -88,7 +88,7 @@ export const getBestMatch = (context = {}, entries = [], keys) => {
     bestMatch = entry;
   }
   return bestMatch;
-};
+}
 
 /**
  * Returns a subset of entries that match the provided context.
@@ -97,7 +97,7 @@ export const getBestMatch = (context = {}, entries = [], keys) => {
  * @param {Array<string>} keys - The keys to match against (optional).
  * @returns {Array<object>} All matching config entries
  */
-export const getAllMatches = (context = {}, entries = [], keys) => {
+export function getAllMatches(context = {}, entries = [], keys) {
   keys = keys || Object.keys(context); // use provided keys or fallback to keys in the context
   if (entries.length === 0 || keys.length === 0) return null; // return if no entries or no match keys
   // returns entries where all keys match the context
@@ -109,4 +109,4 @@ export const getAllMatches = (context = {}, entries = [], keys) => {
     }, true);
   });
   return matches;
-};
+}

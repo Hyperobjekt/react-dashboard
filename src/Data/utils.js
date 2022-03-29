@@ -8,7 +8,7 @@ export const PASS_THROUGH = (v) => v;
  * @param {function} parser (optional) a function that parses a CSV row or JSON data (default: [d3.autoType](
  * @returns {Promise}
  */
-export const fetchDataSource = async (url, parser) => {
+export async function fetchDataSource(url, parser) {
   const isCsv = url.endsWith(".csv");
   return fetch(url)
     .then((response) => {
@@ -17,19 +17,19 @@ export const fetchDataSource = async (url, parser) => {
     .then((data) => {
       return isCsv ? parseCsvString(data, parser) : parseJsonData(data, parser);
     });
-};
+}
 
 /**
  * Pulls out wildcard definitions in the ID (e.g. states_*_00 becomes states_00)
  * @param {*} id
  * @returns {string} identifier with wildcards removed
  */
-export const parseId = (id) => {
+export function parseId(id) {
   return id
     .split("_")
     .filter((v) => v !== "*")
     .join("_");
-};
+}
 
 /**
  * Parses a value based on the provided type.  If no type is provided,
@@ -39,7 +39,7 @@ export const parseId = (id) => {
  * @param {string} options.type "date"|"float"|"integer"|"boolean"
  * @returns {*}
  */
-export const parseValue = (value, options = {}) => {
+export function parseValue(value, options = {}) {
   if (!value && value !== 0) return null;
   const type = options.type;
   switch (type) {
@@ -58,7 +58,7 @@ export const parseValue = (value, options = {}) => {
     default:
       return autoType([value])[0];
   }
-};
+}
 
 /**
  * Parses a string value based on the provided type and splits
@@ -69,7 +69,7 @@ export const parseValue = (value, options = {}) => {
  * @param {string} options.separator separator for array values (default: ";")
  * @returns {*}
  */
-export const parseValues = (stringValue, options = {}) => {
+export function parseValues(stringValue, options = {}) {
   const type = options.type;
   const separator = options.separator || ";";
   if (!stringValue) return null;
@@ -80,7 +80,7 @@ export const parseValues = (stringValue, options = {}) => {
     return parseValue(stringValue, { type });
   // if multiple values, return array of parsed values
   return stringValue.split(separator).map((v) => parseValue(v, { type }));
-};
+}
 
 /**
  * Passes data entries through the parser function, or if the data is
@@ -89,9 +89,9 @@ export const parseValues = (stringValue, options = {}) => {
  * @param {function} parser
  * @returns {Array|Object}
  */
-export const parseJsonData = (data, parser = PASS_THROUGH) => {
+export function parseJsonData(data, parser = PASS_THROUGH) {
   return Array.isArray(data) ? data.map(parser) : parser(data);
-};
+}
 
 /**
  * Alias for csvParse with autoType. Parses a csv string into an
@@ -100,6 +100,6 @@ export const parseJsonData = (data, parser = PASS_THROUGH) => {
  * @param {function} parser
  * @returns {Array<object>}
  */
-export const parseCsvString = (data, parser = autoType) => {
+export function parseCsvString(data, parser = autoType) {
   return csvParse(data, parser);
-};
+}

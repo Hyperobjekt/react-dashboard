@@ -11,6 +11,15 @@ import { areEqual } from "./utils";
  * - `addSelected`: a function that adds a location to the selected locations
  * - `removeSelected`: a function that removes a location from the selected locations
  * - `isSelected`: a function that returns true if the provided feature is a selected location.
+ *
+ * **Example:**
+ * ```js
+ * // returns the selected locations from the store
+ * const selected = useLocationStore((state) => state.selected);
+ * ```
+ * @function
+ * @param {function} stateSelector selector function that returns the state slice
+ * @returns {*}
  */
 export const useLocationStore = create((set, get) => ({
   selected: [],

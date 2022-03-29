@@ -1,67 +1,67 @@
-## Constants
+## Functions
 
 <dl>
-<dt><a href="#autoFormatNumber">autoFormatNumber</a> ⇒ <code>string</code></dt>
+<dt><a href="#autoFormatNumber">autoFormatNumber(num)</a> ⇒ <code>string</code></dt>
 <dd><p>Determines the number precision and returns a short formatted string with appropriate sig figs.
 (e.g. 12000000 -&gt; 1.2M)</p>
 </dd>
-<dt><a href="#formatInteger">formatInteger</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatInteger">formatInteger(num)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats full integer values, adding commas for thousands
 (e.g. 1234567 -&gt; 1,234,567)</p>
 </dd>
-<dt><a href="#formatIntegerShort">formatIntegerShort</a> ⇒ <code>string</code></dt>
-<dd><p>Formats short integer values
+<dt><a href="#formatIntegerShort">formatIntegerShort(num)</a> ⇒ <code>string</code></dt>
+<dd><p>Formats short integer values.
 (e.g. 1200 -&gt; 1.2k)</p>
 </dd>
-<dt><a href="#formatDecimal">formatDecimal</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatDecimal">formatDecimal(value, precision)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats decimal numbers to the given precision (eg. 123.456789 -&gt; 123.46)</p>
 </dd>
-<dt><a href="#formatDate8601">formatDate8601</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatDate8601">formatDate8601(date)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats date to ISO string (yyyy-mm-dd) (e.g. 2018-01-02)</p>
 </dd>
-<dt><a href="#formatShortDate">formatShortDate</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatShortDate">formatShortDate(date)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats date to short format (e.g. Jan 2, &#39;18)</p>
 </dd>
-<dt><a href="#formatFullDate">formatFullDate</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatFullDate">formatFullDate(date)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats date to full format (e.g. January 2, 2018)</p>
 </dd>
-<dt><a href="#formatMonth">formatMonth</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatMonth">formatMonth(date)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats date to full month name (e.g. January)</p>
 </dd>
-<dt><a href="#formatShortMonth">formatShortMonth</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatShortMonth">formatShortMonth(date)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats date to short month name (e.g. Jan)</p>
 </dd>
-<dt><a href="#formatMonthDay">formatMonthDay</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatMonthDay">formatMonthDay(date)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats date to short month day (e.g. Jan 2)</p>
 </dd>
-<dt><a href="#formatMonthYear">formatMonthYear</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatMonthYear">formatMonthYear(date)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats date to short month year (e.g. Jan &#39;18)</p>
 </dd>
-<dt><a href="#formatPercent">formatPercent</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatPercent">formatPercent(value)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats decimal values to percent with 2 sig figs (e.g. 0.5 -&gt; 50%)</p>
 </dd>
-<dt><a href="#formatDollars">formatDollars</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatDollars">formatDollars(value)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats a number value to full dollar amount with commas.  No cents will be shown. (e.g. 1234567.89 -&gt; $1,234,567)</p>
 </dd>
-<dt><a href="#formatCurrency">formatCurrency</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatCurrency">formatCurrency(value)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats a number value to a shortened currency format (e.g. 1234567 -&gt; $1.2M)</p>
 </dd>
-<dt><a href="#formatFullCurrency">formatFullCurrency</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatFullCurrency">formatFullCurrency(value)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats a number value to full dollar amount with commas and cents. (e.g. 1234567.89 -&gt; $1,234,567.89)</p>
 </dd>
-<dt><a href="#formatYesNo">formatYesNo</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatYesNo">formatYesNo(v)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats a truthy value to &quot;Yes&quot; or a falsy value to &quot;No&quot;</p>
 </dd>
-<dt><a href="#formatOnOff">formatOnOff</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatOnOff">formatOnOff(v)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats a truthy value to &quot;On&quot; or a falsy value to &quot;Off&quot;</p>
 </dd>
-<dt><a href="#formatNothing">formatNothing</a> ⇒ <code>*</code></dt>
+<dt><a href="#formatNothing">formatNothing(value)</a> ⇒ <code>*</code></dt>
 <dd><p>A pass-through function that returns the value provided</p>
 </dd>
-<dt><a href="#formatPercentValue">formatPercentValue</a> ⇒ <code>string</code></dt>
+<dt><a href="#formatPercentValue">formatPercentValue(value)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats a number value to a percentage with 2 sig figs.  Does not multiply by 100 (use formatPercent instead for that case).  (e.g. 12.34 -&gt; 12.34%)</p>
 </dd>
-<dt><a href="#getFormatter">getFormatter</a> ⇒ <code>function</code></dt>
+<dt><a href="#getFormatter">getFormatter(type)</a> ⇒ <code>function</code></dt>
 <dd><p>Provides a formatter function based on the provided type string.  Available types include:</p>
 <ul>
 <li>number (123456789 -&gt; 12.34M)</li>
@@ -87,11 +87,11 @@
 
 <a name="autoFormatNumber"></a>
 
-## autoFormatNumber ⇒ <code>string</code>
+## autoFormatNumber(num) ⇒ <code>string</code>
 Determines the number precision and returns a short formatted string with appropriate sig figs.
 (e.g. 12000000 -> 1.2M)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -99,11 +99,11 @@ Determines the number precision and returns a short formatted string with approp
 
 <a name="formatInteger"></a>
 
-## formatInteger ⇒ <code>string</code>
+## formatInteger(num) ⇒ <code>string</code>
 Formats full integer values, adding commas for thousands
 (e.g. 1234567 -> 1,234,567)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -111,11 +111,11 @@ Formats full integer values, adding commas for thousands
 
 <a name="formatIntegerShort"></a>
 
-## formatIntegerShort ⇒ <code>string</code>
-Formats short integer values
+## formatIntegerShort(num) ⇒ <code>string</code>
+Formats short integer values.
 (e.g. 1200 -> 1.2k)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -123,10 +123,10 @@ Formats short integer values
 
 <a name="formatDecimal"></a>
 
-## formatDecimal ⇒ <code>string</code>
+## formatDecimal(value, precision) ⇒ <code>string</code>
 Formats decimal numbers to the given precision (eg. 123.456789 -> 123.46)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -135,10 +135,10 @@ Formats decimal numbers to the given precision (eg. 123.456789 -> 123.46)
 
 <a name="formatDate8601"></a>
 
-## formatDate8601 ⇒ <code>string</code>
+## formatDate8601(date) ⇒ <code>string</code>
 Formats date to ISO string (yyyy-mm-dd) (e.g. 2018-01-02)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -146,10 +146,10 @@ Formats date to ISO string (yyyy-mm-dd) (e.g. 2018-01-02)
 
 <a name="formatShortDate"></a>
 
-## formatShortDate ⇒ <code>string</code>
+## formatShortDate(date) ⇒ <code>string</code>
 Formats date to short format (e.g. Jan 2, '18)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -157,10 +157,10 @@ Formats date to short format (e.g. Jan 2, '18)
 
 <a name="formatFullDate"></a>
 
-## formatFullDate ⇒ <code>string</code>
+## formatFullDate(date) ⇒ <code>string</code>
 Formats date to full format (e.g. January 2, 2018)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -168,10 +168,10 @@ Formats date to full format (e.g. January 2, 2018)
 
 <a name="formatMonth"></a>
 
-## formatMonth ⇒ <code>string</code>
+## formatMonth(date) ⇒ <code>string</code>
 Formats date to full month name (e.g. January)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -179,10 +179,10 @@ Formats date to full month name (e.g. January)
 
 <a name="formatShortMonth"></a>
 
-## formatShortMonth ⇒ <code>string</code>
+## formatShortMonth(date) ⇒ <code>string</code>
 Formats date to short month name (e.g. Jan)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -190,10 +190,10 @@ Formats date to short month name (e.g. Jan)
 
 <a name="formatMonthDay"></a>
 
-## formatMonthDay ⇒ <code>string</code>
+## formatMonthDay(date) ⇒ <code>string</code>
 Formats date to short month day (e.g. Jan 2)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -201,10 +201,10 @@ Formats date to short month day (e.g. Jan 2)
 
 <a name="formatMonthYear"></a>
 
-## formatMonthYear ⇒ <code>string</code>
+## formatMonthYear(date) ⇒ <code>string</code>
 Formats date to short month year (e.g. Jan '18)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -212,10 +212,10 @@ Formats date to short month year (e.g. Jan '18)
 
 <a name="formatPercent"></a>
 
-## formatPercent ⇒ <code>string</code>
+## formatPercent(value) ⇒ <code>string</code>
 Formats decimal values to percent with 2 sig figs (e.g. 0.5 -> 50%)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -223,10 +223,10 @@ Formats decimal values to percent with 2 sig figs (e.g. 0.5 -> 50%)
 
 <a name="formatDollars"></a>
 
-## formatDollars ⇒ <code>string</code>
+## formatDollars(value) ⇒ <code>string</code>
 Formats a number value to full dollar amount with commas.  No cents will be shown. (e.g. 1234567.89 -> $1,234,567)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -234,10 +234,10 @@ Formats a number value to full dollar amount with commas.  No cents will be show
 
 <a name="formatCurrency"></a>
 
-## formatCurrency ⇒ <code>string</code>
+## formatCurrency(value) ⇒ <code>string</code>
 Formats a number value to a shortened currency format (e.g. 1234567 -> $1.2M)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -245,10 +245,10 @@ Formats a number value to a shortened currency format (e.g. 1234567 -> $1.2M)
 
 <a name="formatFullCurrency"></a>
 
-## formatFullCurrency ⇒ <code>string</code>
+## formatFullCurrency(value) ⇒ <code>string</code>
 Formats a number value to full dollar amount with commas and cents. (e.g. 1234567.89 -> $1,234,567.89)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -256,10 +256,10 @@ Formats a number value to full dollar amount with commas and cents. (e.g. 123456
 
 <a name="formatYesNo"></a>
 
-## formatYesNo ⇒ <code>string</code>
+## formatYesNo(v) ⇒ <code>string</code>
 Formats a truthy value to "Yes" or a falsy value to "No"
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -267,10 +267,10 @@ Formats a truthy value to "Yes" or a falsy value to "No"
 
 <a name="formatOnOff"></a>
 
-## formatOnOff ⇒ <code>string</code>
+## formatOnOff(v) ⇒ <code>string</code>
 Formats a truthy value to "On" or a falsy value to "Off"
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -278,10 +278,10 @@ Formats a truthy value to "On" or a falsy value to "Off"
 
 <a name="formatNothing"></a>
 
-## formatNothing ⇒ <code>\*</code>
+## formatNothing(value) ⇒ <code>\*</code>
 A pass-through function that returns the value provided
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -289,10 +289,10 @@ A pass-through function that returns the value provided
 
 <a name="formatPercentValue"></a>
 
-## formatPercentValue ⇒ <code>string</code>
+## formatPercentValue(value) ⇒ <code>string</code>
 Formats a number value to a percentage with 2 sig figs.  Does not multiply by 100 (use formatPercent instead for that case).  (e.g. 12.34 -> 12.34%)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -300,7 +300,7 @@ Formats a number value to a percentage with 2 sig figs.  Does not multiply by 10
 
 <a name="getFormatter"></a>
 
-## getFormatter ⇒ <code>function</code>
+## getFormatter(type) ⇒ <code>function</code>
 Provides a formatter function based on the provided type string.  Available types include:
 - number (123456789 -> 12.34M)
 - integer (123456789 -> 123,456,789)
@@ -320,7 +320,7 @@ Provides a formatter function based on the provided type string.  Available type
 - yes_no (true -> Yes, false -> No)
 - on_off (true -> On, false -> Off)
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |

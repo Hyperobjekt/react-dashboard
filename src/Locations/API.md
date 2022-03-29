@@ -1,7 +1,7 @@
-## Utils
+## Functions
 
 <dl>
-<dt><a href="#useLocationStore">useLocationStore</a></dt>
+<dt><a href="#useLocationStore">useLocationStore(stateSelector)</a> ⇒ <code>*</code></dt>
 <dd><p>A <a href="https://github.com/pmndrs/zustand/blob/main/readme.md">zustand</a> store that contains active selections for the dashboard.</p>
 <p>It is recommended that you use the provided hooks instead of accessing the store directly.  However, the store can be accessed directly if desired.  Be sure to follow the <a href="https://github.com/pmndrs/zustand/blob/main/readme.md#selecting-multiple-state-slices">zustand conventions</a> for accessing store values.</p>
 <p>The store contains the following keys:</p>
@@ -11,39 +11,38 @@
 <li><code>removeSelected</code>: a function that removes a location from the selected locations</li>
 <li><code>isSelected</code>: a function that returns true if the provided feature is a selected location.</li>
 </ul>
+<p><strong>Example:</strong></p>
+<pre><code class="language-js">// returns the selected locations from the store
+const selected = useLocationStore((state) =&gt; state.selected);
+</code></pre>
 </dd>
-<dt><a href="#getRegionFromGeoid">getRegionFromGeoid</a> ⇒ <code>string</code></dt>
+<dt><a href="#getRegionFromGeoid">getRegionFromGeoid(geoid)</a> ⇒ <code>string</code></dt>
 <dd><p>Returns the region type based on the GEOID</p>
 </dd>
-<dt><a href="#getLocationContextFromGeoid">getLocationContextFromGeoid</a> ⇒ <code>Object</code></dt>
+<dt><a href="#getLocationContextFromGeoid">getLocationContextFromGeoid(geoid)</a> ⇒ <code>Object</code></dt>
 <dd><p>Returns the parent identifiers for a given geoid</p>
 </dd>
-<dt><a href="#getStateFromGeoid">getStateFromGeoid</a> ⇒ <code>string</code></dt>
+<dt><a href="#getStateFromGeoid">getStateFromGeoid(geoid)</a> ⇒ <code>string</code></dt>
 <dd><p>Returns the state portion of a geoid.</p>
 </dd>
-<dt><a href="#getCountyFromGeoid">getCountyFromGeoid</a> ⇒ <code>string</code></dt>
+<dt><a href="#getCountyFromGeoid">getCountyFromGeoid(geoid)</a> ⇒ <code>string</code></dt>
 <dd><p>Returns the county portion for a geoid.</p>
 </dd>
-<dt><a href="#getTractFromGeoid">getTractFromGeoid</a> ⇒ <code>string</code></dt>
+<dt><a href="#getTractFromGeoid">getTractFromGeoid(geoid)</a> ⇒ <code>string</code></dt>
 <dd><p>Returns the tract portion of a geoid</p>
 </dd>
-<dt><a href="#getCityFromGeoid">getCityFromGeoid</a> ⇒ <code>string</code></dt>
+<dt><a href="#getCityFromGeoid">getCityFromGeoid(geoid)</a> ⇒ <code>string</code></dt>
 <dd><p>Returns the city portion for a geoid.</p>
 </dd>
-<dt><a href="#getBlockGroupFromGeoid">getBlockGroupFromGeoid</a> ⇒ <code>string</code></dt>
+<dt><a href="#getBlockGroupFromGeoid">getBlockGroupFromGeoid(geoid)</a> ⇒ <code>string</code></dt>
 <dd><p>Returns the block group portion for a geoid.</p>
 </dd>
-<dt><a href="#areEqual">areEqual</a> ⇒ <code>boolean</code></dt>
+<dt><a href="#areEqual">areEqual(a, b)</a> ⇒ <code>boolean</code></dt>
 <dd><p>Returns true if features have the same GEOID</p>
 </dd>
-<dt><a href="#getNextColor">getNextColor</a> ⇒ <code>string</code></dt>
+<dt><a href="#getNextColor">getNextColor(usedColors, availableColors)</a> ⇒ <code>string</code></dt>
 <dd><p>Gets the next available color when given an array of used colors and an array of all available colors.</p>
 </dd>
-</dl>
-
-## Hooks
-
-<dl>
 <dt><a href="#useAddLocation">useAddLocation()</a> ⇒ <code>function</code></dt>
 <dd><p>Returns the &quot;addSelected&quot; function from the store.</p>
 </dd>
@@ -79,7 +78,7 @@ it will be removed from the list. (Deprecated: Use <code>useToggleLocation</code
 
 <a name="useLocationStore"></a>
 
-## useLocationStore
+## useLocationStore(stateSelector) ⇒ <code>\*</code>
 A [zustand](https://github.com/pmndrs/zustand/blob/main/readme.md) store that contains active selections for the dashboard.
 
 It is recommended that you use the provided hooks instead of accessing the store directly.  However, the store can be accessed directly if desired.  Be sure to follow the [zustand conventions](https://github.com/pmndrs/zustand/blob/main/readme.md#selecting-multiple-state-slices) for accessing store values.
@@ -90,13 +89,24 @@ The store contains the following keys:
 - `removeSelected`: a function that removes a location from the selected locations
 - `isSelected`: a function that returns true if the provided feature is a selected location.
 
-**Kind**: global constant  
+**Example:**
+```js
+// returns the selected locations from the store
+const selected = useLocationStore((state) => state.selected);
+```
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| stateSelector | <code>function</code> | selector function that returns the state slice |
+
 <a name="getRegionFromGeoid"></a>
 
-## getRegionFromGeoid ⇒ <code>string</code>
+## getRegionFromGeoid(geoid) ⇒ <code>string</code>
 Returns the region type based on the GEOID
 
-**Kind**: global constant  
+**Kind**: global function  
 **Returns**: <code>string</code> - "states", "counties", "cities", "tracts", "bg"  
 
 | Param | Type |
@@ -105,10 +115,10 @@ Returns the region type based on the GEOID
 
 <a name="getLocationContextFromGeoid"></a>
 
-## getLocationContextFromGeoid ⇒ <code>Object</code>
+## getLocationContextFromGeoid(geoid) ⇒ <code>Object</code>
 Returns the parent identifiers for a given geoid
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -116,10 +126,10 @@ Returns the parent identifiers for a given geoid
 
 <a name="getStateFromGeoid"></a>
 
-## getStateFromGeoid ⇒ <code>string</code>
+## getStateFromGeoid(geoid) ⇒ <code>string</code>
 Returns the state portion of a geoid.
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -127,10 +137,10 @@ Returns the state portion of a geoid.
 
 <a name="getCountyFromGeoid"></a>
 
-## getCountyFromGeoid ⇒ <code>string</code>
+## getCountyFromGeoid(geoid) ⇒ <code>string</code>
 Returns the county portion for a geoid.
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -138,10 +148,10 @@ Returns the county portion for a geoid.
 
 <a name="getTractFromGeoid"></a>
 
-## getTractFromGeoid ⇒ <code>string</code>
+## getTractFromGeoid(geoid) ⇒ <code>string</code>
 Returns the tract portion of a geoid
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -149,10 +159,10 @@ Returns the tract portion of a geoid
 
 <a name="getCityFromGeoid"></a>
 
-## getCityFromGeoid ⇒ <code>string</code>
+## getCityFromGeoid(geoid) ⇒ <code>string</code>
 Returns the city portion for a geoid.
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -160,10 +170,10 @@ Returns the city portion for a geoid.
 
 <a name="getBlockGroupFromGeoid"></a>
 
-## getBlockGroupFromGeoid ⇒ <code>string</code>
+## getBlockGroupFromGeoid(geoid) ⇒ <code>string</code>
 Returns the block group portion for a geoid.
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -171,10 +181,10 @@ Returns the block group portion for a geoid.
 
 <a name="areEqual"></a>
 
-## areEqual ⇒ <code>boolean</code>
+## areEqual(a, b) ⇒ <code>boolean</code>
 Returns true if features have the same GEOID
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -183,10 +193,10 @@ Returns true if features have the same GEOID
 
 <a name="getNextColor"></a>
 
-## getNextColor ⇒ <code>string</code>
+## getNextColor(usedColors, availableColors) ⇒ <code>string</code>
 Gets the next available color when given an array of used colors and an array of all available colors.
 
-**Kind**: global constant  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |

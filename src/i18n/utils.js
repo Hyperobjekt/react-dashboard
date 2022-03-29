@@ -7,7 +7,7 @@ import mustache from "mustache";
  * @param {object} values
  * @returns {string}
  */
-export const interpolateString = (template, values) => {
+export function interpolateString(template, values) {
   const matches = template.match(/{{[^}]+}}/g) || [];
   const matchKeys = matches.map((match) => match.replace(/[{}]/g, ""));
   const valueKeys = Object.keys(values);
@@ -15,4 +15,4 @@ export const interpolateString = (template, values) => {
   if (missingKeys.length > 0)
     console.warn("Missing values for interpolation:", missingKeys);
   return mustache.render(template, values);
-};
+}

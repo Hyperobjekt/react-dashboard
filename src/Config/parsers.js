@@ -94,7 +94,7 @@ const DEFAULT_PARSERS = {
  * @param {*} configType
  * @returns
  */
-export const getDefaultParser = (configType) => {
+export function getDefaultParser(configType) {
   if (!DEFAULT_PARSERS[configType]) {
     console.debug(
       `no parser provided for config, so config will not be parsed. (fine when using JSON config)`
@@ -102,4 +102,4 @@ export const getDefaultParser = (configType) => {
     return PASS_THROUGH; // return whatever data is passed
   }
   return DEFAULT_PARSERS[configType];
-};
+}

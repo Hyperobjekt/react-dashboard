@@ -7,7 +7,7 @@ import deepmerge from "deepmerge";
  * Returns an array of from / to values with the given number of steps between.
  * (e.g. for mapping values to bubble radius)
  */
-export const getLinearRamp = (from, to, steps = 1) => {
+export function getLinearRamp(from, to, steps = 1) {
   // adjust from extent if values are equal
   if (from && from[0] === from[1]) from = [0, from[1]];
   if (from[0] === from[1]) from = [0, 1];
@@ -19,7 +19,7 @@ export const getLinearRamp = (from, to, steps = 1) => {
     values.push(toInterpolator(i / steps));
   }
   return values;
-};
+}
 
 /**
  * Returns an array of position / color pairs to use for continuous
@@ -29,7 +29,7 @@ export const getLinearRamp = (from, to, steps = 1) => {
  * @param {function} to - scale functon that maps 0 - 1 to a color (or other value)
  * @param {number} steps - number of steps to include in the returned array (more steps = smoother gradient)
  */
-export const getInterpolatedSteps = (from, to, steps = 1) => {
+export function getInterpolatedSteps(from, to, steps = 1) {
   if (!from || !from[0] || !from[1]) from = [0, 1];
   const fromInterpolator = getPositionScale("linear", [0, 1], from);
   const toInterpolator = to;
@@ -39,7 +39,7 @@ export const getInterpolatedSteps = (from, to, steps = 1) => {
     values.push(toInterpolator(i / steps));
   }
   return values;
-};
+}
 
 /**
  * Takes the color "chunks" for the given color scale and returns
@@ -47,7 +47,7 @@ export const getInterpolatedSteps = (from, to, steps = 1) => {
  * @param {*} chunks
  * @returns
  */
-export const getStepsFromChunks = (chunks) => {
+export function getStepsFromChunks(chunks) {
   const steps = [];
   chunks.forEach((chunk, i) => {
     if (i === 0) steps.push(chunk.color);
@@ -55,14 +55,14 @@ export const getStepsFromChunks = (chunks) => {
     steps.push(chunk.color);
   });
   return steps;
-};
+}
 
 /**
  * Takes multiple features and returns a single feature with the union of their geometry
  * @param {Array<GeoJSON.Feature>} features
  * @returns {GeoJSON.Feature}
  */
-export const combineFeatures = (features) => {
+export function combineFeatures(features) {
   return features.length > 0
     ? features.reduce(
         (combined, f) =>
@@ -70,7 +70,7 @@ export const combineFeatures = (features) => {
         null
       )
     : features;
-};
+}
 
 /**
  * Get line width steps for different regions
@@ -105,12 +105,12 @@ const getComplementaryColor = (color) => {
   return c.lightness(40).desaturate(0.25).rgb().string();
 };
 
-export const getRampExpression = (type, varName, steps) => {
+export function getRampExpression(type, varName, steps) {
   if (type === "step") return ["step", ["get", varName], ...steps];
   if (type === "linear")
     return ["interpolate", ["linear"], ["get", varName], ...steps];
   throw new Error("no ramp for type: " + type);
-};
+}
 
 export const getLineWidthExpression = (
   minWidth,
@@ -143,23 +143,23 @@ export const getColorExpression = (
   return ["case", ["!=", ["get", varName], null], color, noDataColor];
 };
 
-export const getCaseExpression = (varName, truthyValue, falsyValue) => {
+export function getCaseExpression(varName, truthyValue, falsyValue) {
   return ["case", ["!=", ["get", varName], null], truthyValue, falsyValue];
-};
+}
 
-export const getComplementarySteps = (steps) => {
+export function getComplementarySteps(steps) {
   return steps.map((step) => {
     if (Number.isFinite(step)) return step;
     return getComplementaryColor(step);
   });
-};
+}
 
 /**
  * Returns layer style for choropleth fill layer
  * @param {LayerContext} context
  * @returns {Array<mapboxgl.Layer>} [layer]](https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/)
  */
-export const getChoroplethFillLayer = ({ varName, fillColor, baseLayer }) => {
+export function getChoroplethFillLayer({ varName, fillColor, baseLayer }) {
   return {
     id: `${varName}-fill`,
     type: "fill",
@@ -169,7 +169,7 @@ export const getChoroplethFillLayer = ({ varName, fillColor, baseLayer }) => {
     interactive: true,
     ...baseLayer,
   };
-};
+}
 
 /**
  * Returns layer style for choropleth outlines layer
@@ -238,7 +238,7 @@ export const getChoroplethHoverLayers = ({
  * @param {LayerContext} context
  * @returns {Array<mapboxgl.Layer>} [layer]](https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/)
  */
-export const getBubbleFillLayers = (context) => {
+export function getBubbleFillLayers(context) {
   const {
     rampType,
     varName,
@@ -293,7 +293,7 @@ export const getBubbleFillLayers = (context) => {
   };
   // merge in the auto switch overrides if auto switch is enabled
   return [autoSwitch ? deepmerge(baseLayer, autoSwitchOverrides) : baseLayer];
-};
+}
 
 export const getBubbleFillLayer = ({
   varName,

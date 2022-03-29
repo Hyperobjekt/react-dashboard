@@ -15,9 +15,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "docs:Data": "jsdoc2md src/Data/*.js | sed -e 's/## Constants/## Utils/g' | sed -e 's/## Functions/## Hooks/g' > src/Data/API.md",
+    "docs:Data": "jsdoc2md src/Data/*.js > src/Data/API.md",
     "docs:Formatters": "jsdoc2md src/Formatters/*.js > src/Formatters/API.md",
-    "docs:Locations": "jsdoc2md src/Locations/*.js src/Locations/hooks/*.js | sed -e 's/## Constants/## Utils/g' | sed -e 's/## Functions/## Hooks/g' > src/Locations/API.md"
+    "docs:Locations": "jsdoc2md src/Locations/*.js src/Locations/hooks/*.js > src/Locations/API.md"
   },
   "dependencies": {
     "@react-spring/web": "^9.4.3",

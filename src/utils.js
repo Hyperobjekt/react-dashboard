@@ -5,7 +5,7 @@ import { interpolateString } from "./i18n";
  * @param {*} config
  * @returns
  */
-export const getDefaultsFromConfig = (config) => {
+export function getDefaultsFromConfig(config) {
   const values = {};
   const appConfig = config.app;
   values["year"] = appConfig.default_year || appConfig.years?.[0];
@@ -14,7 +14,7 @@ export const getDefaultsFromConfig = (config) => {
   values["choroplethMetric"] = appConfig.default_choropleth_metric;
   values["bubbleMetric"] = appConfig.default_bubble_metric;
   return values;
-};
+}
 
 /**
  * Interpolates a key with provided context values.
@@ -22,11 +22,11 @@ export const getDefaultsFromConfig = (config) => {
  * @param {*} key
  * @param {*} context
  */
-export const interpolateKey = (key, context) => {
+export function interpolateKey(key, context) {
   if (!key) return null;
   const newContext = { ...context };
   // add 2 digit year
   if (context.year?.length === 4)
     newContext["yy"] = context.year.toString().slice(-2);
   return interpolateString(key, newContext);
-};
+}
