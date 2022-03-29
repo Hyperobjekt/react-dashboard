@@ -46,9 +46,6 @@ const selected = useLocationStore((state) =&gt; state.selected);
 <dt><a href="#useAddLocation">useAddLocation()</a> ⇒ <code>function</code></dt>
 <dd><p>Returns the &quot;addSelected&quot; function from the store.</p>
 </dd>
-<dt><a href="#useHoveredLocation">useHoveredLocation()</a> ⇒ <code>MapFeature</code></dt>
-<dd><p>Returns the hovered feature on the map. Alias for useMapState(&quot;hoveredFeature&quot;).</p>
-</dd>
 <dt><a href="#useLocationData">useLocationData(prop)</a> ⇒ <code>Array</code> | <code>Object</code></dt>
 <dd><p>Returns the feature properties for a location</p>
 </dd>
@@ -60,9 +57,6 @@ const selected = useLocationStore((state) =&gt; state.selected);
 </dd>
 <dt><a href="#useRemoveLocation">useRemoveLocation()</a> ⇒ <code>function</code></dt>
 <dd><p>Returns the &quot;removeSelected&quot; function from the store.</p>
-</dd>
-<dt><a href="#useSelectedLocation">useSelectedLocation()</a> ⇒ <code>MapFeature</code></dt>
-<dd><p>Returns the selected (clicked) feature on the map.</p>
 </dd>
 <dt><a href="#useToggleLocation">useToggleLocation()</a> ⇒ <code>function</code></dt>
 <dd><p>Returns a callback function that accepts a feature and adds it to the
@@ -210,12 +204,6 @@ Returns the "addSelected" function from the store.
 
 **Kind**: global function  
 **Returns**: <code>function</code> - function that adds the provided feature to the selected locations if it doesn't exist  
-<a name="useHoveredLocation"></a>
-
-## useHoveredLocation() ⇒ <code>MapFeature</code>
-Returns the hovered feature on the map. Alias for useMapState("hoveredFeature").
-
-**Kind**: global function  
 <a name="useLocationData"></a>
 
 ## useLocationData(prop) ⇒ <code>Array</code> \| <code>Object</code>
@@ -257,12 +245,6 @@ Returns the "removeSelected" function from the store.
 
 **Kind**: global function  
 **Returns**: <code>function</code> - function that removes the provided id to the selected locations if it exists  
-<a name="useSelectedLocation"></a>
-
-## useSelectedLocation() ⇒ <code>MapFeature</code>
-Returns the selected (clicked) feature on the map.
-
-**Kind**: global function  
 <a name="useToggleLocation"></a>
 
 ## useToggleLocation() ⇒ <code>function</code>
