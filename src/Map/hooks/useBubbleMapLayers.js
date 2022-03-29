@@ -9,7 +9,6 @@ export default function useBubbleMapLayers() {
   const bubbleVarName = accessor(bubbleContext);
   const bubbleScale = useBubbleScale(bubbleContext);
   const bubbleMapLayerConfig = useMapLayersConfig(bubbleContext);
-  console.log(bubbleMapLayerConfig);
   return bubbleMapLayerConfig
     .map((config) => getBubbleLayers(bubbleVarName, bubbleScale, config))
     .flat();

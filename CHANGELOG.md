@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.4.4] - 2022-03-29
+
+- fix: use proper value ranges for choropleth layers when start is 0
+
 ## [0.4.3] - 2022-03-29
 
 - fix: drop hovered + selected location hooks (not working as intended)

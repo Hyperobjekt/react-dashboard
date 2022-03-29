@@ -9,10 +9,11 @@ export default function useChoroplethMapLayers() {
   const choroplethVarName = accessor(choroplethContext);
   const choroplethScale = useChoroplethScale(choroplethContext);
   const choroplethMapLayerConfig = useMapLayersConfig(choroplethContext);
-  console.log(choroplethMapLayerConfig);
-  return choroplethMapLayerConfig
+  const layers = choroplethMapLayerConfig
     .map((config) =>
       getChoroplethLayers(choroplethVarName, choroplethScale, config)
     )
     .flat();
+
+  return layers;
 }

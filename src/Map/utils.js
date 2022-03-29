@@ -30,7 +30,8 @@ export function getLinearRamp(from, to, steps = 1) {
  * @param {number} steps - number of steps to include in the returned array (more steps = smoother gradient)
  */
 export function getInterpolatedSteps(from, to, steps = 1) {
-  if (!from || !from[0] || !from[1]) from = [0, 1];
+  if (!from || !Number.isFinite(from[0]) || !Number.isFinite(from[1]))
+    from = [0, 1];
   const fromInterpolator = getPositionScale("linear", [0, 1], from);
   const toInterpolator = to;
   const values = [];
@@ -447,7 +448,6 @@ export function getBubbleLayers(varName, scale, layerConfig) {
   } = scale;
   const extent = [min, max];
   const rampType = "linear";
-  console.log({ rampType, chunks, extent, size: size.range() });
   const sizeSteps = [
     "interpolate",
     ["linear"],
@@ -497,7 +497,6 @@ export function getBubbleLayers(varName, scale, layerConfig) {
       6,
     ],
   ];
-  console.log({ circleColor, circleRadius, fillSteps });
   const lineColorExpression =
     line_color === "auto"
       ? getRampExpression(rampType, varName, getComplementarySteps(fillSteps))
@@ -521,7 +520,6 @@ export function getBubbleLayers(varName, scale, layerConfig) {
     circleRadius,
     baseLayer,
   });
-  console.log({ fillLayer });
   // const outlineLayer = getBubbleOutlineLayer({
   //   varName,
   //   lineColor: "#fff",
