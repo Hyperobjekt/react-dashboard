@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.4.3] - 2022-03-29
+
+- fix: drop hovered + selected location hooks (not working as intended)
+
 ## [0.4.2] - 2022-03-28
 
 - chore: update function signatures and module docs
