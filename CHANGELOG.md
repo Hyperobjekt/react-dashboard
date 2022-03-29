@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.4.2] - 2022-03-28
+
+- chore: update function signatures and module docs
+
 ## [0.4.1] - 2022-03-28
 
 - chore: add API docs for location module
