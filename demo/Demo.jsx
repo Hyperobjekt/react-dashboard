@@ -41,7 +41,7 @@ function Map() {
 
 function App() {
   return (
-    <Dashboard config={LOCAL_CONFIG}>
+    <Dashboard config={LOCAL_CONFIG} enableRouter>
       <div className="controls">
         <ChoroplethSelect className="select" />
         <BubbleSelect className="select" />

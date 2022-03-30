@@ -1,12 +1,7 @@
-import { useLoadConfig } from "./Config";
 import { QueryClient, QueryClientProvider } from "react-query";
 import QueryParamRouter from "./Router/QueryParamRouter";
-import { getDefaultsFromConfig } from "./utils";
-import useCurrentRouteParams from "./Router/useCurrentRouteParams";
+import useConfigLoader from "./Config/hooks/useConfigLoader";
 import { useConfigStore } from "./Config";
-import useDashboardStore from "./store";
-import { useDidMount } from "rooks";
-import { useMapStore } from "@hyperobjekt/mapgl";
 
 /**
  * Dashboard wrapper component that handles setting up the query provider
@@ -17,45 +12,13 @@ export default function Dashboard({
   client,
   config,
   loader,
+  onLoad,
   children,
+  enableRouter,
   ...props
 }) {
-  // use the async config loader function
-  const loadConfig = useLoadConfig();
-  // generic setter for the dashboard store
-  const setValues = useDashboardStore((state) => state.set);
-  // pulls the query params from the url
-  const routeValues = useCurrentRouteParams();
-  // setter for map viewport (zoom, lat, lon)
-  const setViewState = useMapStore((state) => state.setViewState);
-  // config ready state
   const isReady = useConfigStore((state) => state.ready);
-  const setReady = useConfigStore((state) => state.setReady);
-
-  // load configuration and set default values on mount
-  useDidMount(() => {
-    loadConfig(config).then((loadedConfig) => {
-      const defaultValues = getDefaultsFromConfig(loadedConfig);
-      // merge defaults and route options
-      const loadedValues = { ...defaultValues, ...routeValues };
-      // extract non-dashboard state from the values
-      const { zoom, latitude, longitude, locations, ...dashboardState } =
-        loadedValues;
-      // set the selections for the dashboard
-      setValues(dashboardState);
-      // set the viewport state for the map if values exist
-      zoom &&
-        latitude &&
-        longitude &&
-        setViewState({
-          zoom: Number(zoom),
-          latitude: Number(latitude),
-          longitude: Number(longitude),
-        });
-      // 💅 config has loaded, defaults set, the dashboard is ready
-      setReady(true);
-    });
-  });
+  useConfigLoader({ config, enableRouter, onLoad });
 
   return (
     <QueryClientProvider client={client} {...props}>
@@ -65,7 +28,7 @@ export default function Dashboard({
               We only want to connect the router once 
               the config + route selections have loaded
            */}
-          <QueryParamRouter />
+          {enableRouter && <QueryParamRouter />}
           {children}
         </>
       ) : (

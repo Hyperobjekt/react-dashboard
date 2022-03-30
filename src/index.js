@@ -5,5 +5,6 @@ export * from "./Locations";
 export * from "./Map";
 export * from "./i18n";
 export * from "./hooks";
+export * from "./Router";
 export { default as useDashboardStore } from "./store";
 export { default } from "./Dashboard";
