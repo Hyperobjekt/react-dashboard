@@ -1,9 +1,13 @@
 # Changelog
 
-# [0.5.0]: 2022-03-30
+## [0.5.1] - 2022-03-30
+
+- fix: remove `@hyperobjekt/mapgl` and `@hyperobjekt/scales` from build output
+
+## [0.5.0] - 2022-03-30
 
 - feat: allow callback function to be provided to `<Dashboard />` via `onLoad` prop
-- feat: allow optional routing with `enableRouting` prop on `<Dashboard />`
+- feat: allow optional routing with `enableRouter` prop on `<Dashboard />`
 - fix: do not throw errors if no `extent_data` is provided for scales
 
 ## [0.4.4] - 2022-03-29
