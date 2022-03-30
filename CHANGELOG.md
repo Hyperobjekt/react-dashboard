@@ -1,5 +1,11 @@
 # Changelog
 
+# [0.5.0]: 2022-03-30
+
+- feat: allow callback function to be provided to `<Dashboard />` via `onLoad` prop
+- feat: allow optional routing with `enableRouting` prop on `<Dashboard />`
+- fix: do not throw errors if no `extent_data` is provided for scales
+
 ## [0.4.4] - 2022-03-29
 
 - fix: use proper value ranges for choropleth layers when start is 0
