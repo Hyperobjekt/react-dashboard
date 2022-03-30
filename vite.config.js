@@ -13,7 +13,13 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
-      external: ["react", "react-dom", "mapbox-gl"],
+      external: [
+        "react",
+        "react-dom",
+        "mapbox-gl",
+        "@hyperobjekt/mapgl",
+        "@hyperobjekt/scales",
+      ],
       output: {
         globals: {
           react: "react",
