@@ -1,6 +1,5 @@
 import { autoType } from "d3-dsv";
 import { useQuery } from "react-query";
-import { interpolateString } from "../i18n";
 import { fetchDataSource } from "./utils";
 
 /**
@@ -10,17 +9,18 @@ import { fetchDataSource } from "./utils";
  * @returns {object} `useQuery` result (see [react-query docs](https://react-query.tanstack.com/reference/useQuery))
  */
 function useDataSource(url, parser = autoType) {
-  return useQuery(
-    url,
-    async () => {
+  const hasUrl = Boolean(url);
+  return useQuery({
+    queryKey: url || "nullQuery",
+    queryFn: async () => {
+      if (!hasUrl) return Promise.reject("No URL provided");
       const data = await fetchDataSource(url, parser);
       return data;
     },
-    {
-      // The query will not execute until a URL is provided
-      enabled: !!url,
-    }
-  );
+    // The query will not execute until a URL is provided
+    enabled: hasUrl,
+    retry: hasUrl ? 3 : false,
+  });
 }
 
 export default useDataSource;
