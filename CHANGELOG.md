@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.5.2] - 2022-03-31
+
+- fix: `useRemoveLocation` should accept ID string instead of object (but still allows object)
+
 ## [0.5.1] - 2022-03-30
 
 - fix: remove `@hyperobjekt/mapgl` and `@hyperobjekt/scales` from build output

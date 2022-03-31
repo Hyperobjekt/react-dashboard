@@ -31,12 +31,20 @@ export const useLocationStore = create((set, get) => ({
       return { selected: [...state.selected, selected] };
     }),
   // removes a feature from the selected array
-  removeSelected: (selected) =>
+  removeSelected: (selectedId) =>
     set((state) => {
-      // should provide a feature to remove
-      if (typeof selected !== "object")
-        console.warn("removeSelected: expected object");
-      return { selected: state.selected.filter((f) => !areEqual(f, selected)) };
+      // if a data obeject or feature was provided, grab the GEOID
+      if (typeof selectedId === "object")
+        selectedId = selectedId?.GEOID || selectedId?.properties?.GEOID;
+      if (typeof selectedId !== "string") {
+        console.warn("expected a GEOID string when removing a location");
+        return;
+      }
+      return {
+        selected: state.selected.filter(
+          (f) => f?.properties?.GEOID !== selectedId
+        ),
+      };
     }),
   // checks and see if a feature is already selected
   isSelected: (feature) => get().selected.some((f) => areEqual(f, feature)),
