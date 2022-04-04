@@ -20,7 +20,6 @@ export default defineConfig({
         "mapbox-gl",
         "@hyperobjekt/mapgl",
         "@hyperobjekt/scales",
-        "@react-spring/web",
         "zustand",
       ],
       output: {
