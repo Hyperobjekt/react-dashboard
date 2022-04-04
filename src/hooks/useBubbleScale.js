@@ -8,9 +8,14 @@ import { useDataSource } from "../Data";
 import { getScale } from "@hyperobjekt/scales";
 import { getFormatter } from "../Formatters";
 import { interpolateString } from "../i18n";
+import useBubbleContext from "./useBubbleContext";
 
-export default function useBubbleScale(context, configOverrides) {
+export default function useBubbleScale({
+  context: contextOverrides,
+  config: configOverrides,
+}) {
   const accessor = useAccessor();
+  const context = useBubbleContext(contextOverrides);
   // pull the default choropleth colors
   const defaultColor = useAppConfig("default_bubble_colors");
   // pull scale config

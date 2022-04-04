@@ -1,11 +1,11 @@
 import { useMetricConfig } from "../Config";
-import { useBubbleContext } from "../Map";
+import useCurrentContext from "./useCurrentContext";
 
 /**
  * Returns the current bubble metric (with labels + formatter)
  * @returns {object}
  */
 export default function useBubbleMetric() {
-  const { metric_id } = useBubbleContext();
-  return useMetricConfig(metric_id);
+  const { bubbleMetric } = useCurrentContext();
+  return useMetricConfig(bubbleMetric);
 }

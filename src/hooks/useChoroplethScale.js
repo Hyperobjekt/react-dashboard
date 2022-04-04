@@ -1,4 +1,5 @@
 import { getScale } from "@hyperobjekt/scales";
+import { useChoroplethContext } from ".";
 import {
   useAccessor,
   useAppConfig,
@@ -14,7 +15,11 @@ import { interpolateString } from "../i18n";
  * @param {*} context
  * @returns
  */
-export default function useChoroplethScale(context, configOverrides) {
+export default function useChoroplethScale({
+  context: contextOverrides,
+  config: configOverrides,
+}) {
+  const context = useChoroplethContext(contextOverrides);
   const accessor = useAccessor();
   // pull the default choropleth colors
   const defaultColor = useAppConfig("default_choropleth_colors");

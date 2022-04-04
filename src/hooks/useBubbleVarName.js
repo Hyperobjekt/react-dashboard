@@ -1,5 +1,5 @@
 import { useAccessor } from "../Config";
-import { useBubbleContext } from "../Map";
+import useBubbleContext from "./useBubbleContext";
 
 /**
  * Returns the variable name for the bubble data point

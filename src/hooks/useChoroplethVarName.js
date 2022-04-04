@@ -1,5 +1,5 @@
+import { useChoroplethContext } from ".";
 import { useAccessor } from "../Config";
-import { useChoroplethContext } from "../Map";
 
 /**
  * Returns the variable name for the choropleth data point
