@@ -1,4 +1,3 @@
-import union from "@turf/union";
 import Color from "color";
 import { getPositionScale } from "@hyperobjekt/scales";
 import deepmerge from "deepmerge";
@@ -56,21 +55,6 @@ export function getStepsFromChunks(chunks) {
     steps.push(chunk.color);
   });
   return steps;
-}
-
-/**
- * Takes multiple features and returns a single feature with the union of their geometry
- * @param {Array<GeoJSON.Feature>} features
- * @returns {GeoJSON.Feature}
- */
-export function combineFeatures(features) {
-  return features.length > 0
-    ? features.reduce(
-        (combined, f) =>
-          combined ? union(combined, f, { properties: f.properties }) : f,
-        null
-      )
-    : features;
 }
 
 /**
@@ -520,12 +504,5 @@ export function getBubbleLayers(varName, scale, layerConfig) {
     circleRadius,
     baseLayer,
   });
-  // const outlineLayer = getBubbleOutlineLayer({
-  //   varName,
-  //   lineColor: "#fff",
-  //   lineWidth: 1,
-  //   circleRadius,
-  //   baseLayer,
-  // });
   return [fillLayer];
 }

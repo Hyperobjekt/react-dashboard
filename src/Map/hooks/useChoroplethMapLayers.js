@@ -1,18 +1,22 @@
 import { useAccessor, useMapLayersConfig } from "../../Config";
-import { useChoroplethScale } from "../../hooks";
+import { useChoroplethContext, useChoroplethScale } from "../../hooks";
 import { getChoroplethLayers } from "../utils";
-import useChoroplethContext from "./useChoroplethContext";
 
-export default function useChoroplethMapLayers() {
+export default function useChoroplethMapLayers({
+  context: contextOverrides,
+  scale: scaleOverrides,
+  createLayer = getChoroplethLayers,
+} = {}) {
   const accessor = useAccessor();
-  const choroplethContext = useChoroplethContext();
-  const choroplethVarName = accessor(choroplethContext);
-  const choroplethScale = useChoroplethScale(choroplethContext);
-  const choroplethMapLayerConfig = useMapLayersConfig(choroplethContext);
+  const context = useChoroplethContext(contextOverrides);
+  const choroplethVarName = accessor(context);
+  const choroplethScale = useChoroplethScale({
+    context,
+    config: scaleOverrides,
+  });
+  const choroplethMapLayerConfig = useMapLayersConfig(context);
   const layers = choroplethMapLayerConfig
-    .map((config) =>
-      getChoroplethLayers(choroplethVarName, choroplethScale, config)
-    )
+    .map((config) => createLayer(choroplethVarName, choroplethScale, config))
     .flat();
 
   return layers;

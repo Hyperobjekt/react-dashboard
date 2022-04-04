@@ -1,15 +1,18 @@
 import { useAccessor, useMapLayersConfig } from "../../Config";
-import { useBubbleScale } from "../../hooks";
+import { useBubbleContext, useBubbleScale } from "../../hooks";
 import { getBubbleLayers } from "../utils";
-import useBubbleContext from "./useBubbleContext";
 
-export default function useBubbleMapLayers() {
+export default function useBubbleMapLayers({
+  context: contextOverrides,
+  scale: scaleOverrides,
+  createLayer = getBubbleLayers,
+} = {}) {
   const accessor = useAccessor();
-  const bubbleContext = useBubbleContext();
-  const bubbleVarName = accessor(bubbleContext);
-  const bubbleScale = useBubbleScale(bubbleContext);
-  const bubbleMapLayerConfig = useMapLayersConfig(bubbleContext);
+  const context = useBubbleContext(contextOverrides);
+  const bubbleVarName = accessor(context);
+  const bubbleScale = useBubbleScale({ context, config: scaleOverrides });
+  const bubbleMapLayerConfig = useMapLayersConfig(context);
   return bubbleMapLayerConfig
-    .map((config) => getBubbleLayers(bubbleVarName, bubbleScale, config))
+    .map((config) => createLayer(bubbleVarName, bubbleScale, config))
     .flat();
 }
