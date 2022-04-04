@@ -1,9 +1,8 @@
 # @hyperobjekt/react-dashboard
 
-This package provides sensible defaults for dashboard style apps. Functionality includes:
+This package provides base configuration for a dashboard and hooks for:
 
-- Configuration Loading
-- Data fetching and caching (via react-query)
+- Configuration loading and retrieval based on current context
 - Formatters for different data types
 - Hooks to provide data to components (for Maps, Controls, Location Data, etc.)
 - i18n
@@ -18,7 +17,6 @@ This library contains no UI elements. You provide a configuration to the dashboa
 // see the configuration documentation below for more details
 const DASHBOARD_CONFIG = {
   "app": { ... },
-  "dataSources": [ ... ],
   "metrics": [ ... ],
   "regions": [ ... ],
   "subgroups": [ ... ],
@@ -49,7 +47,7 @@ See the following files for examples:
 
 ### App Configuration (`app`)
 
-Configuration under the `app` key contains default settings for the dashboard.
+Configuration under the `app` key contains default settings for the dashboard. You can also add your own properties to the app configurationand access them using `useAppConfig("myCustomProperty")`.
 
 - `default_choropleth_colors`:
   - An array of color strings to use for choropleth layers OR a string value for one of the color schemes from [d3-scale-chromatic](https://observablehq.com/@d3/color-schemes)
@@ -96,6 +94,11 @@ Configuration under the `app` key contains default settings for the dashboard.
 }
 ```
 
+#### Associated Hooks
+
+- `useAppConfig(key: string)` => `any`  
+  Returns the value for the given key.
+
 ### Metric Configuration (`metrics`)
 
 Metric configuration determines which data options are available to the dashboard. A metric configuration entry contains:
@@ -128,6 +131,20 @@ All metric names, descriptions, and units are defined in the language configurat
 ]
 ```
 
+#### Associated Hooks
+
+##### `useMetricConfig([key: string|string[]])` => `Metric|Metric[]`
+
+Provide no arguments to return an array of all available metrics, an array of metric IDs for a subset of metrics, or a single ID string to return a metric.
+
+The returned metric objects include the values in the metric config along with:
+
+- `name`: the name of the metric from the i18n store (under the key `METRIC_{{ID}}`)
+- `hint`: a hint for the metrics from the i18n store (under the key `HINT_{{ID}}`)
+- `unit`: a unit of measurement from the i18n store (under the key `UNIT_{{ID}}`)
+- `formatter`: a formatter function for the metric, based on the `format` property in the metric config
+- `shortFormatter`: a formatter function for the metric, based on the `short_format` property in the metric config
+
 ### Region Configuration (`regions`)
 
 Region configuration specifies which regions are available to the dashboard (e.g. counties, zip codes, etc.). A region configuration entry contains:
@@ -143,6 +160,16 @@ Region configuration specifies which regions are available to the dashboard (e.g
 
 All region names are specified in the language configuration.
 
+#### Associated Hooks
+
+##### `useRegionConfig([key: string])` => `Region|Region[]`
+
+Provide no arguments to return an array of all available regions, or a single ID string to return a region.
+
+The returned region objects include the values in the region config along with:
+
+- `name`: the name of the region from the i18n store (under the key `REGION_{{ID}}`)
+
 ### Subgroup Configuration (`subgroups`)
 
 Subgroups are used to group data by a specific category. For example, you might have a data set where metric data broken down by different groupings (e.g. age, race, gender, etc). Each subgroup configuration entry contains:
@@ -150,38 +177,13 @@ Subgroups are used to group data by a specific category. For example, you might 
 - `id`
   - a unique string identifier for the subgroup.
 
-### Data Sources (`dataSources`)
+##### `useSubgroupConfig([key: string])` => `Subgroup|Subgroup[]`
 
-Data sources configuration entries contain a data source to fetch when certain selections are made in the dashboard. A data source configuration entry contains:
+Provide no arguments to return an array of all available subgroups, or a single ID string to return a single subgroup.
 
-- `id`
-  - a unique string identifier for the data source
-- `region_id`
-  - an identifier for the region that this data source is associated with. Use `"*"` if the data source is not associated with a region.
-- `metric_id`
-  - an identifier for the metric that this data source is associated with. Use `"*"` if the data source is not associated with a metric.
-- `subgroup_id`
-  - an identifier for the subgroup that this data source is associated with. Use `"*"` if the data source is not associated with a subgroup.
-- `year`
-  - an identifier for the year that this data source is associated with. Use `"*"` if the data source is not associated with a year.
-- `type`
-  - a string with the type of data that this data source contains.
-- `url`
-  - the URL that will be fetched when the conditions are met. You can use placeholder values in the URL and they will be replaced with the values of the current dashboard selections. (e.g. `{{region_id}}`, `{{metric_id}}`, `{{year}}`, etc.)
+The returned region objects include the values in the region config along with:
 
-Data sources are only fetched when the entry matches the current selections in the dashboard. For example, the following data source entry will be fetched when "cities" are selected as the region in the dashboard:
-
-```json
-{
-  "id": "cities_data",
-  "region_id": "cities",
-  "metric_id": "*",
-  "subgroup_id": "*",
-  "year": "*",
-  "type": "extents",
-  "url": "/assets/data/cities.csv"
-}
-```
+- `name`: the name of the region from the i18n store (under the key `SUBGROUP_{{ID}}`)
 
 ### Scales Configuration (`scales`)
 
@@ -202,11 +204,53 @@ Scales configuration determines the colors and ranges to use for choropleth and 
 }
 ```
 
+#### Associated Hooks
+
+##### `useChoroplethScale()` => `Region|Region[]`
+
+Provide no arguments to return an array of all available regions, or a single ID string to return a region.
+
+The returned region objects include the values in the region config along with:
+
+- `name`: the name of the region from the i18n store (under the key `REGION_{{ID}}`)
+
+### Map Sources Configurations (`mapSources`)
+
+Map sources are used by the map layers.
+
+- `id`
+  - identifier for the source
+- `region_id`
+  - an identifier for the region that this map source is associated with. Use `"*"` to use this layer for all regions.
+- `metric_id`
+  - an identifier for the metric that this map source is associated with. Use `"*"` to use this layer for all metrics.
+- `subgroup_id`
+  - an identifier for the subgroup that this map source is associated with. Use `"*"` to use this layer with all subgroups.
+- `year`
+  - the year that this map layer is associated with. Use `"*"` to use this layer for all years.
+- `source_url`
+  - url to the data source (either tileset or geojson)
+- `source_type`
+  - type of source (e.g. `"geojson"` or `"vector_tiles"`). corresponds to mapboxgl source types.
+
+```json
+{
+  "id": "states_choropleth",
+  "region_id": "states",
+  "metric_id": "*",
+  "subgroup_id": "*",
+  "year": "*",
+  "source_url": "https://spi-tilesets.s3.us-west-2.amazonaws.com/v0.0.1/states/{z}/{x}/{y}.pbf",
+  "source_type": "vector_tiles"
+}
+```
+
 ### Map Layers Configuration (`mapLayers`)
 
 Map layers configuration specifies which layers will be shown on the map. A map layer configuration entry contains:
 
-- ## `id`
+- `id`
+  - identifier for the map layer
 - `region_id`
   - an identifier for the region that this map layer is associated with. Use `"*"` to use this layer for all regions.
 - `metric_id`
@@ -241,10 +285,41 @@ Map layers configuration specifies which layers will be shown on the map. A map 
   "year": "*",
   "type": "choropleth",
   "source_id": "states_choropleth",
-  "source_url": "https://spi-tilesets.s3.us-west-2.amazonaws.com/v0.0.1/states/{z}/{x}/{y}.pbf",
-  "source_type": "vector_tiles",
   "source_layer": "states",
   "min_zoom": 1,
   "max_zoom": 8
+}
+```
+
+### FUTURE RELEASE: Data Sources (`dataSources`)
+
+Data sources configuration entries contain a data source to fetch when certain selections are made in the dashboard. A data source configuration entry contains:
+
+- `id`
+  - a unique string identifier for the data source
+- `region_id`
+  - an identifier for the region that this data source is associated with. Use `"*"` if the data source is not associated with a region.
+- `metric_id`
+  - an identifier for the metric that this data source is associated with. Use `"*"` if the data source is not associated with a metric.
+- `subgroup_id`
+  - an identifier for the subgroup that this data source is associated with. Use `"*"` if the data source is not associated with a subgroup.
+- `year`
+  - an identifier for the year that this data source is associated with. Use `"*"` if the data source is not associated with a year.
+- `type`
+  - a string with the type of data that this data source contains.
+- `url`
+  - the URL that will be fetched when the conditions are met. You can use placeholder values in the URL and they will be replaced with the values of the current dashboard selections. (e.g. `{{region_id}}`, `{{metric_id}}`, `{{year}}`, etc.)
+
+Data sources are only fetched when the entry matches the current selections in the dashboard. For example, the following data source entry will be fetched when "cities" are selected as the region in the dashboard:
+
+```json
+{
+  "id": "cities_data",
+  "region_id": "cities",
+  "metric_id": "*",
+  "subgroup_id": "*",
+  "year": "*",
+  "type": "extents",
+  "url": "/assets/data/cities.csv"
 }
 ```
