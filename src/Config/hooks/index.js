@@ -9,3 +9,4 @@ export { default as useRegionConfig } from "./useRegionConfig";
 export { default as useSubgroupConfig } from "./useSubgroupConfig";
 export { default as useAccessor } from "./useAccessor";
 export { default as useConfigLoader } from "./useConfigLoader";
+export { default as useMapSourceConfig } from "./useMapSourceConfig";

@@ -28,5 +28,7 @@ export function interpolateKey(key, context) {
   // add 2 digit year
   if (context.year?.length === 4)
     newContext["yy"] = context.year.toString().slice(-2);
+  // add 2 digit decade
+  if (context.year?.length === 4) newContext["decade"] = context.year[2] + "0";
   return interpolateString(key, newContext);
 }
