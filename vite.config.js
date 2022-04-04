@@ -16,9 +16,12 @@ export default defineConfig({
       external: [
         "react",
         "react-dom",
+        "react-query",
         "mapbox-gl",
         "@hyperobjekt/mapgl",
         "@hyperobjekt/scales",
+        "@react-spring/web",
+        "zustand",
       ],
       output: {
         globals: {
