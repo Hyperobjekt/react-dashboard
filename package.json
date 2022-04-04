@@ -1,6 +1,6 @@
 {
   "name": "@hyperobjekt/react-dashboard",
-  "version": "0.5.2",
+  "version": "1.0.0",
   "license": "MIT",
   "files": [
     "dist"
@@ -35,9 +35,9 @@
     "react-dom": "^17.0.0",
     "react-json-view": "^1.21.3",
     "react-map-gl": "^7.0.9",
+    "react-query": "^3.34.16",
     "vite": "^2.8.0",
-    "zustand": "^3.7.1",
-    "react-query": "^3.34.16"
+    "zustand": "^3.7.1"
   },
   "peerDependencies": {
     "@hyperobjekt/mapgl": "^1.1.7",
