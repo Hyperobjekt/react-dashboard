@@ -169,85 +169,39 @@
     }
   ],
   "subgroups": [{ "id": "all" }],
+  "mapSources": [
+    {
+      "id": "counties-00",
+      "region_id": "counties",
+      "metric_id": "*",
+      "subgroup_id": "*",
+      "year": "/200[0-9]{1}/",
+      "tiles": [
+        "https://tiles.evictionlab.org/v2/modelled/counties-00/{z}/{x}/{y}.pbf"
+      ],
+      "type": "vector"
+    },
+    {
+      "id": "counties-10",
+      "region_id": "counties",
+      "metric_id": "*",
+      "subgroup_id": "*",
+      "year": "/201[0-9]{1}/",
+      "tiles": [
+        "https://tiles.evictionlab.org/v2/modelled/counties-10/{z}/{x}/{y}.pbf"
+      ],
+      "type": "vector"
+    }
+  ],
   "mapLayers": [
     {
       "id": "counties_choropleth",
       "region_id": "counties",
       "metric_id": "*",
       "subgroup_id": "*",
-      "year": [
-        "2000",
-        "2001",
-        "2002",
-        "2003",
-        "2004",
-        "2005",
-        "2006",
-        "2007",
-        "2008",
-        "2009"
-      ],
+      "year": "*",
       "type": "choropleth",
-      "source_id": "counties-00",
-      "source_url": "https://tiles.evictionlab.org/v2/modelled/counties-00/{z}/{x}/{y}.pbf",
-      "source_type": "vector_tiles",
-      "source_layer": "counties",
-      "min_zoom": 2,
-      "max_zoom": 12,
-      "min_linewidth": 0.5,
-      "max_linewidth": 4,
-      "line_color": "auto"
-    },
-    {
-      "id": "counties_bubble",
-      "region_id": "counties",
-      "metric_id": "*",
-      "subgroup_id": "*",
-      "year": [
-        "2000",
-        "2001",
-        "2002",
-        "2003",
-        "2004",
-        "2005",
-        "2006",
-        "2007",
-        "2008",
-        "2009"
-      ],
-      "type": "bubble",
-      "source_id": "counties-00",
-      "source_url": "https://tiles.evictionlab.org/v2/modelled/counties-00/{z}/{x}/{y}.pbf",
-      "source_type": "vector_tiles",
-      "source_layer": "counties-centers",
-      "min_zoom": 2,
-      "max_zoom": 12,
-      "min_zoom_size": [0.5, 12],
-      "max_zoom_size": [3, 24],
-      "min_linewidth": 0.5,
-      "max_linewidth": 1,
-      "line_color": "#fff"
-    },
-    {
-      "id": "counties_choropleth",
-      "region_id": "counties",
-      "metric_id": "*",
-      "subgroup_id": "*",
-      "year": [
-        "2010",
-        "2011",
-        "2012",
-        "2013",
-        "2014",
-        "2015",
-        "2016",
-        "2017",
-        "2018"
-      ],
-      "type": "choropleth",
-      "source_id": "counties-10",
-      "source_url": "https://tiles.evictionlab.org/v2/modelled/counties-10/{z}/{x}/{y}.pbf",
-      "source_type": "vector_tiles",
+      "source_id": "counties-{{decade}}",
       "source_layer": "counties",
       "min_zoom": 1,
       "max_zoom": 24,
@@ -262,21 +216,9 @@
       "region_id": "counties",
       "metric_id": "*",
       "subgroup_id": "*",
-      "year": [
-        "2010",
-        "2011",
-        "2012",
-        "2013",
-        "2014",
-        "2015",
-        "2016",
-        "2017",
-        "2018"
-      ],
+      "year": "*",
       "type": "bubble",
-      "source_id": "counties-10",
-      "source_url": "https://tiles.evictionlab.org/v2/modelled/counties-10/{z}/{x}/{y}.pbf",
-      "source_type": "vector_tiles",
+      "source_id": "counties-{{decade}}",
       "source_layer": "counties-centers",
       "min_zoom": 2,
       "max_zoom": 12,
@@ -288,12 +230,7 @@
       "beforeId": "settlement-subdivision-label"
     }
   ],
-  "dataSources": [
-    {
-      "type": "location",
-      "endpoint": "https://evictionlab.org/data/{{GEOID:2}}/{{region_id}}.csv"
-    }
-  ],
+  "dataSources": [],
   "scales": [
     {
       "id": "default_choropleth",

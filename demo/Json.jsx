@@ -5,18 +5,15 @@ import {
   useBubbleContext,
   useChoroplethContext,
   useConfig,
-  useCurrentContext,
-  useDataSourceConfig,
   useLangStore,
   useMapLayersConfig,
   useMetricConfig,
   useRegionConfig,
   useChoroplethScale,
-  useScaleConfig,
   useSubgroupConfig,
+  useMapSourceConfig,
   useMapSources,
   useBubbleScale,
-  useChoroplethMapLayerContext,
   getChoroplethLayers,
 } from "../src";
 import useAccessor from "../src/Config/hooks/useAccessor";
@@ -49,6 +46,7 @@ function Json() {
   const metricConfig = useMetricConfig();
   const regionConfig = useRegionConfig();
   const subgroupConfig = useSubgroupConfig();
+  const mapSourceConfig = useConfig("mapSources");
   const mapLayerConfig = useConfig("mapLayers");
   const dataSourcesConfig = useConfig("dataSources");
   const scalesConfig = useConfig("scales");
@@ -81,6 +79,7 @@ function Json() {
       subgroups: subgroupConfig,
       scales: scalesConfig,
       mapLayers: mapLayerConfig,
+      mapSources: mapSourceConfig,
       dataSources: dataSourcesConfig,
       lang: langConfig,
     },
