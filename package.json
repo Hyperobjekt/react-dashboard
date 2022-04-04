@@ -20,15 +20,10 @@
     "docs:Locations": "jsdoc2md src/Locations/*.js src/Locations/hooks/*.js > src/Locations/API.md"
   },
   "dependencies": {
-    "@react-spring/web": "^9.4.3",
-    "@turf/union": "^6.5.0",
-    "clsx": "^1.1.1",
     "d3-dsv": "^3.0.1",
     "d3-format": "^3.1.0",
     "d3-time-format": "^4.1.0",
-    "mustache": "^4.2.0",
-    "react-query": "^3.34.16",
-    "zustand": "^3.7.1"
+    "mustache": "^4.2.0"
   },
   "devDependencies": {
     "@hyperobjekt/mapgl": "^1.1.7",
@@ -46,6 +41,8 @@
     "@hyperobjekt/mapgl": "^1.1.7",
     "@hyperobjekt/scales": "^2.1.2",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "react-query": "^3.34.16",
+    "zustand": "^3.7.1"
   }
 }
