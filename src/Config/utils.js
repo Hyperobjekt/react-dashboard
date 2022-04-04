@@ -54,11 +54,23 @@ export async function loadConfig(url, options = {}) {
  * @returns {boolean} true if the value matches the config value
  */
 export function isMatch(configValue, actualValue) {
-  // config value should be a string or array of strings
+  // exit early if not possible to match (e.g. non-string or non-array value)
   if (typeof configValue !== "string" && !Array.isArray(configValue))
     return false;
-  if (configValue === "*") return true; // wildcard match
-  if (configValue === actualValue) return true; // values equal
+  // wildcard match
+  if (configValue === "*") return true;
+  // equal value match
+  if (configValue === actualValue) return true;
+  // regex match
+  if (
+    typeof configValue === "string" &&
+    configValue[0] === "/" &&
+    configValue[configValue.length - 1] === "/"
+  ) {
+    const regex = new RegExp(configValue.slice(1, -1));
+    return regex.test(actualValue);
+  }
+  // in array match
   if (Array.isArray(configValue)) return configValue.includes(actualValue);
   return false;
 }
