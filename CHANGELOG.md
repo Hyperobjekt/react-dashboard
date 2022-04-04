@@ -1,5 +1,96 @@
 # Changelog
 
+## [1.0.0] - 2022-04-04
+
+- feat: `useChoroplethMapLayers` and `useBubbleMapLayers` now accept an optional object parameter containing:
+  - `context`: any context overrides
+  - `scale`: scale config overrides
+  - `createLayer`: a function that accepts `varName`, `scale`, and `config` parameters and returns layers.
+- feat: allow matching context fields based on a regex value (e.g. `/201[0-9]{1}/` to match 2010-2019)
+  - regex values must start and end with the `/` character. Regex flags are not supported.
+- refactor: split `mapSources` config from `mapLayers` config
+
+### Breaking Changes
+
+1. configuration for map sources has been removed from `mapLayers` and placed in it's own root level `mapSources` key. the configuration object should mirror the keys used for [mapboxgl sources](https://docs.mapbox.com/mapbox-gl-js/style-spec/sources/).
+
+**Previous usage:**
+
+```json
+{
+  ...
+  "mapLayers": [
+    {
+       "id": "states_choropleth",
+       "region_id": "states",
+       "metric_id": "*",
+       "subgroup_id": "*",
+       "year": "*",
+       "type": "choropleth",
+       "source_id": "states_choropleth",
+       "source_url": "https://mytilesource.com/{z}/{x}/{y}.pbf",
+       "source_type": "vector_tiles",
+       "source_layer": "states",
+       "min_zoom": 1,
+       "max_zoom": 8
+    },
+    ...,
+  ]
+}
+```
+
+**New Usage:**
+
+```json
+{
+  "mapSources": [
+    {
+      "id": "states_source",
+      "tiles": ["https://mytilesource.com/{z}/{x}/{y}.pbf"],
+      "type": "vector",
+    }
+    ...,
+  ],
+  "mapLayers": [
+    {
+       "id": "states_choropleth",
+       "region_id": "states",
+       "metric_id": "*",
+       "subgroup_id": "*",
+       "year": "*",
+       "type": "choropleth",
+       "source_id": "states_source",
+       "source_layer": "states",
+       "min_zoom": 1,
+       "max_zoom": 8
+    },
+    ...,
+  ]
+}
+```
+
+2. `useChoroplethScale` and `useBubbleScale` signature has changed. now accepts a single (optional) parameter:
+
+- `context`: context overrides for the scale
+- `config`: scale configuration overrides
+
+**Previous usage:**
+
+```js
+useBubbleScale(contextOverrides, scaleConfigOverrides);
+```
+
+**New Usage:**
+
+```js
+useBubbleScale({
+  context: contextOverrides,
+  config: scaleConfigOverrides,
+});
+```
+
+3. updated language prefix for hints from `DESC_` to `HINT_`. rename the keys in your language file to `HINT_` to restore hinting functionality.
+
 ## [0.5.2] - 2022-03-31
 
 - fix: `useRemoveLocation` should accept ID string instead of object (but still allows object)
