@@ -6,9 +6,9 @@ import { useLang } from ".";
  * @param {object} options
  * @param {string} options.prefix - prefix to prepend to each of the ids
  * @param {object} options.context - context to use to when interpolating the string
- * @returns
+ * @returns {object} an object with IDs as props and corresponding language strings as values
  */
-export default function useLangObject(ids, { prefix = "", context } = {}) {
+function useLangObject(ids, { prefix = "", context } = {}) {
   // wrap single id in array
   if (typeof ids === "string") ids = [ids];
   // map metric ids to lang key
@@ -26,3 +26,5 @@ export default function useLangObject(ids, { prefix = "", context } = {}) {
     return lang;
   }, {});
 }
+
+export default useLangObject;

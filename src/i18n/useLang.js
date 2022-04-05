@@ -6,8 +6,12 @@ import { interpolateString } from ".";
  * Returns the language string for the given key. You can optionally pass
  * multiple keys, or a context object to interpolate data into a Mustache
  * template format.
+ * @function
+ * @param {string|Array<string>} keys an array of language keys
+ * @param {object} context an optional object of values to populate the language string with
+ * @returns {string|string[]} an individual language string or an array of strings
  */
-export default function useLang(keys, context) {
+function useLang(keys, context) {
   const [language, dict] = useLanguageStore((state) => [
     state.language,
     state.dict,
@@ -20,7 +24,6 @@ export default function useLang(keys, context) {
     const values = mapKeys.map((key) => {
       key = key.toUpperCase();
       if (!lang[key]) {
-        console.debug("useLang: key not found", key);
         return "";
       }
       if (!context) return lang[key];
@@ -29,3 +32,5 @@ export default function useLang(keys, context) {
     return values.length === 1 ? values[0] : values;
   }, [keys, language, dict, context]);
 }
+
+export default useLang;

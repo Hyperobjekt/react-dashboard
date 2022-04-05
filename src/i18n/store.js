@@ -1,31 +1,27 @@
 import create from "zustand";
+import { loadLanguage } from "./utils";
 
 /**
- * Fetch a language file from JSON or CSV. CSV should have "key" and "value" columns.
- * JSON file should be an object of key / value pairs.
- * @param {*} language
- * @param {*} url
- * @returns
+ * Zustand store for i18n module.
+ *
+ * Select individual items from the store with:
+ *
+ * ```js
+ * const language = useLangStore((state) => state.language);
+ * ```
+ *
+ * Or select multiple with:
+ *
+ * ```js
+ * import shallow from "zustand/shallow";
+ * const [language, setLanguage] = useLangStore((state) => [state.language, state.setLanguage], shallow);
+ * ```
+ *
+ * @function
+ * @param {function} selectState a function that accepts the full state in the store and returns the desired values.
+ * @param {function} comparator a comparator function that compares the last state selection to the current one.  Be sure to set this if selecting multiple items from the state.
+ * @returns {*} the selected values from the store
  */
-export const loadLanguage = async (language, url) => {
-  if (typeof language !== "string")
-    throw new Error("Language must be a string identifier");
-  // if we are given a language dict instead of a URL, resolve the promise with the value
-  if (typeof url === "object") return Promise.resolve(url);
-  if (typeof url !== "string") throw new Error("URL must be a string");
-  const isCsv = url.endsWith(".csv");
-  return fetch(url)
-    .then((response) => (isCsv ? response.text() : response.json()))
-    .then((data) => {
-      if (!isCsv) return data;
-      return data.reduce((dict, row) => {
-        const { key, value } = row;
-        dict[key] = value;
-        return dict;
-      }, {});
-    });
-};
-
 const useLangStore = create((set, get) => ({
   language: "en",
   setLanguage: (language, dict) => {
