@@ -18,7 +18,8 @@
     "docs:Data": "jsdoc2md src/Data/*.js > src/Data/API.md",
     "docs:Formatters": "jsdoc2md src/Formatters/*.js > src/Formatters/API.md",
     "docs:Locations": "jsdoc2md src/Locations/*.js src/Locations/hooks/*.js > src/Locations/API.md",
-    "docs:i18n": "jsdoc2md src/i18n/*.js > src/i18n/API.md"
+    "docs:i18n": "jsdoc2md src/i18n/*.js > src/i18n/API.md",
+    "docs:Router": "jsdoc2md src/Router/*.js > src/Router/API.md"
   },
   "dependencies": {
     "d3-dsv": "^3.0.1",
