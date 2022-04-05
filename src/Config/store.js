@@ -58,26 +58,10 @@ export const useConfigStore = create((set, get) => ({
     scales: get().scales,
     mapLayers: get().mapLayers,
   }),
+  loading: false,
+  setLoading: (loading) => set({ loading }),
   ready: false,
   setReady: (ready) => set({ ready }),
-  // BELOW IS APP CONFIGURATION
-  /** configuration for available years */
-  // years: [],
-  // setYears: (years) => set({ years }),
-  // defaultYear: null,
-  // setDefaultYear: (year) => set({ defaultYear: year }),
-  // /** default map viewport */
-  // mapBounds: null,
-  // setMapBounds: (mapBounds) => set({ mapBounds }),
-  // /** an array of colors to use for locations */
-  // locationColors: [],
-  // setLocationColors: (locationColors) => set({ locationColors }),
-  // /** an array of colors to use for choropleth defaults */
-  // choroplethColors: [],
-  // setChoroplethColors: (choroplethColors) => set({ choroplethColors }),
-  // /** a colors to use for bubbles */
-  // bubbleColor: "#f00",
-  // setBubbleColor: (bubbleColor) => set({ bubbleColor }),
 }));
 
 export default useConfigStore;

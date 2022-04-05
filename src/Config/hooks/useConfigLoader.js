@@ -1,58 +1,51 @@
 import { useConfigStore, useLoadConfig } from "..";
-import useDashboardStore from "../../store";
 import { useCurrentRouteParams } from "../../Router";
-import { useMapStore } from "@hyperobjekt/mapgl";
-import { useDidMount } from "rooks";
 import { getDefaultsFromConfig } from "../../utils";
+import { useEffect, useRef } from "react";
+
+// a dummy async load function that is used if `onLoad` is not provided
+const dummyOnLoad = () => {
+  return Promise.resolve();
+};
 
 /**
  * Loads configuration from the provided config and any route params. Calls
  * the `onLoad` callback once ready.
+ * @param {Object} props - useConfigLoader props
+ * @param {string} props.config - the dashboard configuration object
+ * @param {string} props.onLoad - an async function that accepts an object containing `config` and `defaultValues`.  must be an async function (return a promise)
  * @returns {void}
  */
-function useConfigLoader({ config, enableRouter, onLoad }) {
+function useConfigLoader({ config, onLoad = dummyOnLoad }) {
   // use the async config loader function
   const loadConfig = useLoadConfig();
-  // generic setter for the dashboard store
-  const setValues = useDashboardStore((state) => state.set);
   // pulls the query params from the url
   const routeValues = useCurrentRouteParams();
-  // setter for map viewport (zoom, lat, lon)
-  const setViewState = useMapStore((state) => state.setViewState);
   // config ready state
-  const isReady = useConfigStore((state) => state.ready);
   const setReady = useConfigStore((state) => state.setReady);
+  const isLoading = useRef(false);
 
   // load configuration and set default values on mount
-  useDidMount(() => {
+  useEffect(() => {
     // prevent re-loading config
-    if (isReady) return;
+    if (isLoading.current) return;
+    isLoading.current = true;
     loadConfig(config).then((loadedConfig) => {
       const defaultValues = getDefaultsFromConfig(loadedConfig);
       // merge defaults and route options
-      const loadedValues = enableRouter
-        ? { ...defaultValues, ...routeValues }
-        : defaultValues;
-      // extract non-dashboard state from the values
-      const { zoom, latitude, longitude, locations, ...dashboardState } =
-        loadedValues;
-      // set the selections for the dashboard
-      setValues(dashboardState);
-      // set the viewport state for the map if values exist
-      zoom &&
-        latitude &&
-        longitude &&
-        setViewState({
-          zoom: Number(zoom),
-          latitude: Number(latitude),
-          longitude: Number(longitude),
-        });
+      const loadedValues = { ...defaultValues, ...routeValues };
       // 💅 config has loaded, defaults set, the dashboard is ready
-      setReady(true);
-      // trigger callback if set
-      onLoad && onLoad(loadedValues);
+      onLoad({ config: loadedConfig, defaultValues: loadedValues })
+        .then(() => {
+          setReady(true);
+          isLoading.current = false;
+        })
+        .catch((err) => {
+          console.error(err);
+          throw new Error("Error running onLoad callback");
+        });
     });
-  });
+  }, [config, onLoad]);
 }
 
 export default useConfigLoader;
