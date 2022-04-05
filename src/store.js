@@ -19,9 +19,6 @@ export const useDashboardStore = create((set) => ({
   /** current year selection */
   year: null,
   setYear: (year) => set({ year }),
-  /** [x,y] coords of the mouse for positioning tooltips */
-  hoverCoords: [0, 0],
-  setHoverCoords: (hoverCoords) => set({ hoverCoords }),
   /** automatically switch to different geographies when true */
   autoSwitchRegion: true,
   setAutoSwitchRegion: (autoSwitchRegion) => set({ autoSwitchRegion }),
