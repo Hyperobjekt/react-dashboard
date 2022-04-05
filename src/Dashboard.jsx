@@ -1,7 +1,5 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import QueryParamRouter from "./Router/QueryParamRouter";
-import useConfigLoader from "./Config/hooks/useConfigLoader";
-import { useConfigStore } from "./Config";
+import { useConfigStore, useConfigLoader, useOnConfigLoad } from "./Config";
 
 /**
  * Dashboard wrapper component that handles setting up the query provider
@@ -14,26 +12,15 @@ export default function Dashboard({
   loader,
   onLoad,
   children,
-  enableRouter,
   ...props
 }) {
   const isReady = useConfigStore((state) => state.ready);
-  useConfigLoader({ config, enableRouter, onLoad });
+  const onConfigLoad = useOnConfigLoad(onLoad);
+  useConfigLoader({ config, onLoad: onConfigLoad });
 
   return (
     <QueryClientProvider client={client} {...props}>
-      {isReady ? (
-        <>
-          {/*
-              We only want to connect the router once 
-              the config + route selections have loaded
-           */}
-          {enableRouter && <QueryParamRouter />}
-          {children}
-        </>
-      ) : (
-        loader
-      )}
+      {isReady ? children : loader}
     </QueryClientProvider>
   );
 }
