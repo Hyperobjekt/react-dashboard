@@ -9,7 +9,7 @@ import { YearSelect } from "./YearSelect";
 import { SubgroupSelect } from "./SubgroupSelect";
 import Json from "./Json";
 import { MapGL } from "@hyperobjekt/mapgl";
-import { useMapSources } from "../src";
+import { QueryParamRouter, useMapSources } from "../src";
 import useChoroplethMapLayers from "../src/Map/hooks/useChoroplethMapLayers";
 import "@hyperobjekt/mapgl/dist/style.css";
 import useBubbleMapLayers from "../src/Map/hooks/useBubbleMapLayers";
@@ -41,7 +41,8 @@ function Map() {
 
 function App() {
   return (
-    <Dashboard config={LOCAL_CONFIG} enableRouter>
+    <Dashboard config={LOCAL_CONFIG}>
+      <QueryParamRouter />
       <div className="controls">
         <ChoroplethSelect className="select" />
         <BubbleSelect className="select" />
