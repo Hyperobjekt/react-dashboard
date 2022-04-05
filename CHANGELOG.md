@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.0] - 2022-04-05
+
+- feat: allow passing a `mapStateToParams` function prop to `<QueryParamRouter />` to customize route params.
+- feat: allow passing an asynchronous `onLoad` callback to handle any additional loading before setting ready status.
+- fix: load new config when providing new config value
+
+### Routing changes
+
+- `enableRouter` prop is no longer used. use the `<QueryParamRouter />` component as a child of `<Dashboard />` in order to enable routing.
+
 ## [1.0.0] - 2022-04-04
 
 - feat: `useChoroplethMapLayers` and `useBubbleMapLayers` now accept an optional object parameter containing:
