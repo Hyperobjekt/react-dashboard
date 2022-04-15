@@ -1,7 +1,10 @@
 import create from "zustand";
 
-// maps dashboard state value names to query param names
-const DEFAULT_VARMAP = {
+/**
+ * Default mapping of state keys to route params
+ *
+ */
+export const DEFAULT_VARMAP = {
   choroplethMetric: "c",
   bubbleMetric: "b",
   subgroup: "s",
@@ -46,6 +49,8 @@ export const useRouteStore = create((set) => ({
   // an object that contains all query param values
   queryParams: {},
   setQueryParams: (queryParams) => set({ queryParams }),
+  // include global setter to allow extending
+  set,
 }));
 
 export default useRouteStore;

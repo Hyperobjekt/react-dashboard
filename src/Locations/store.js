@@ -48,6 +48,8 @@ export const useLocationStore = create((set, get) => ({
     }),
   // checks and see if a feature is already selected
   isSelected: (feature) => get().selected.some((f) => areEqual(f, feature)),
+  // include global setter for extending
+  set,
 }));
 
 export default useLocationStore;

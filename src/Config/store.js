@@ -62,6 +62,8 @@ export const useConfigStore = create((set, get) => ({
   setLoading: (loading) => set({ loading }),
   ready: false,
   setReady: (ready) => set({ ready }),
+  // include global setter to allow extending
+  set,
 }));
 
 export default useConfigStore;

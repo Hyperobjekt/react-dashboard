@@ -46,6 +46,8 @@ const useLangStore = create((set, get) => ({
     return langDictionary;
   },
   ready: false,
+  // include global setter for extending the store
+  set,
 }));
 
 export default useLangStore;
