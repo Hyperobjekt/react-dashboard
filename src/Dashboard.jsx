@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useConfigStore, useConfigLoader, useOnConfigLoad } from "./Config";
 
@@ -28,4 +29,23 @@ export default function Dashboard({
 Dashboard.defaultProps = {
   client: new QueryClient(),
   loader: "loading",
+};
+
+Dashboard.propTypes = {
+  /**
+   * The query client for react-query.
+   */
+  client: PropTypes.any,
+  /**
+   * Configuration for the dashboard
+   */
+  config: PropTypes.object.isRequired,
+  /**
+   * The loader to display while the configuration is loading.
+   */
+  loader: PropTypes.any,
+  /**
+   * A callback function to be called when the configuration is loaded.
+   */
+  onLoad: PropTypes.func,
 };
