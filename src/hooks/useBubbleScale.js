@@ -13,7 +13,7 @@ import useBubbleContext from "./useBubbleContext";
 export default function useBubbleScale({
   context: contextOverrides,
   config: configOverrides,
-}) {
+} = {}) {
   const accessor = useAccessor();
   const context = useBubbleContext(contextOverrides);
   // pull the default choropleth colors

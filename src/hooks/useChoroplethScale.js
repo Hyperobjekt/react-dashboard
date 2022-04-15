@@ -18,7 +18,7 @@ import { interpolateString } from "../i18n";
 export default function useChoroplethScale({
   context: contextOverrides,
   config: configOverrides,
-}) {
+} = {}) {
   const context = useChoroplethContext(contextOverrides);
   const accessor = useAccessor();
   // pull the default choropleth colors
