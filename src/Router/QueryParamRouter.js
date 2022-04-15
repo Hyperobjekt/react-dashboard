@@ -74,20 +74,20 @@ const QueryParamRouter = ({ varMap: varMapOverride, updateParams }) => {
         longitude: longitude?.toFixed(2),
         locations: selected,
       };
-      const mappedParams = updateParams({ state, varMap });
-      setQueryParams(mappedParams);
-      setUrlQueryParams(mappedParams);
+      const mappedParams = mapStateToQueryParams({ state, varMap });
+      const newParams =
+        typeof updateParams === "function"
+          ? updateParams({ state, varMap, params: mappedParams })
+          : mappedParams;
+      setQueryParams(newParams); // set in the route store
+      setUrlQueryParams(newParams); // set in the url
     },
-    [dashboardState, viewState, setQueryParams, varMap, selected],
+    [dashboardState, viewState, setQueryParams, varMap, selected, updateParams],
     1000
   );
 
   // render nothing!
   return null;
-};
-
-QueryParamRouter.defaultProps = {
-  updateParams: mapStateToQueryParams,
 };
 
 QueryParamRouter.propTypes = {
@@ -98,7 +98,7 @@ QueryParamRouter.propTypes = {
   /**
    * a function that takes the current dashboard state and returns an object of query params
    */
-  mapStateToParams: PropTypes.func,
+  updateParams: PropTypes.func,
 };
 
 export default QueryParamRouter;
