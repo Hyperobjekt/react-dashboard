@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.0] - 2022-04-15
+
+- refactor: replace `mapStateToParams` with `updateParams` prop on `<QueryParamRouter>`
+- feat: allow custom route params to be passed to `onLoad`.
+
 ## [1.1.0] - 2022-04-05
 
 - feat: allow passing a `mapStateToParams` function prop to `<QueryParamRouter />` to customize route params.
