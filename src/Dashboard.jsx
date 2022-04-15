@@ -15,8 +15,8 @@ export default function Dashboard({
   ...props
 }) {
   const isReady = useConfigStore((state) => state.ready);
-  const onConfigLoad = useOnConfigLoad(onLoad);
-  useConfigLoader({ config, onLoad: onConfigLoad });
+  const onConfigLoad = useOnConfigLoad(); // default loader
+  useConfigLoader({ config, onLoad: onLoad || onConfigLoad });
 
   return (
     <QueryClientProvider client={client} {...props}>

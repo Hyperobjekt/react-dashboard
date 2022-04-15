@@ -31,7 +31,7 @@ const useDebouncedEffect = (func, deps, time) => {
  *
  * @component
  */
-const QueryParamRouter = ({ varMap: varMapOverride, mapStateToParams }) => {
+const QueryParamRouter = ({ varMap: varMapOverride, updateParams }) => {
   // pull the variable map and setter from the router store
   const [varMap, setVarMap] = useRouteStore(
     (state) => [state.varMap, state.setVarMap],
@@ -74,7 +74,7 @@ const QueryParamRouter = ({ varMap: varMapOverride, mapStateToParams }) => {
         longitude: longitude?.toFixed(2),
         locations: selected,
       };
-      const mappedParams = mapStateToParams(state, varMap);
+      const mappedParams = updateParams({ state, varMap });
       setQueryParams(mappedParams);
       setUrlQueryParams(mappedParams);
     },
@@ -87,7 +87,7 @@ const QueryParamRouter = ({ varMap: varMapOverride, mapStateToParams }) => {
 };
 
 QueryParamRouter.defaultProps = {
-  mapStateToParams: mapStateToQueryParams,
+  updateParams: mapStateToQueryParams,
 };
 
 QueryParamRouter.propTypes = {

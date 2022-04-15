@@ -38,11 +38,12 @@ export function setUrlQueryParams(values) {
 /**
  * Takes a state object and maps it to a query params object
  * @function
- * @param {RouteState} state current state for the dashboard
- * @param {object} varMap a mapping from state names to query param names.
+ * @param {object} options
+ * @param {RouteState} options.state current state for the dashboard
+ * @param {object} options.varMap a mapping from state names to query param names.
  * @returns {object} query params to set for the route
  */
-export const mapStateToQueryParams = (state = {}, varMap) => {
+export const mapStateToQueryParams = ({ state = {}, varMap } = {}) => {
   // map locations to their ids
   if (state.locations) {
     state.locations = state.locations.map((f) => f.properties.GEOID).join("-");
@@ -54,6 +55,51 @@ export const mapStateToQueryParams = (state = {}, varMap) => {
     if (value) {
       acc[varMap[key] || key] = value;
     }
+    return acc;
+  }, {});
+};
+
+/**
+ * Reverses the state key -> route param mapping
+ *
+ * Example:
+ * ```js
+ * const varMap = { choroplethMetric: "c" };
+ * const result = reverseVarMap(varMap);
+ * // result = { c: "choroplethMetric" }
+ * ```
+ *
+ * @param {object} varMap
+ * @returns {object} route param -> state key mapping
+ */
+export const reverseVarMap = (varMap) => {
+  return Object.keys(varMap).reduce((acc, key) => {
+    acc[varMap[key]] = key;
+    return acc;
+  }, {});
+};
+
+/**
+ * Takes route params and the mapping of state key -> route param and returns
+ * an object with state values based on the param
+ *
+ * Example:
+ * ```js
+ * const varMap = { choroplethMetric: "c" };
+ * const params = { c: "pop" };
+ * const result = mapParamsToStateValues(params, varMap);
+ * // result = { choroplethMetric: "pop" }
+ * ```
+ *
+ * @param {*} params values of route parameters
+ * @param {*} varMap an object of state key -> route param key
+ * @returns {object} state values
+ */
+export const mapParamsToStateValues = (params, varMap) => {
+  const reversedVarMap = reverseVarMap(varMap);
+  return Object.keys(params).reduce((acc, key) => {
+    const stateKey = reversedVarMap[key] || key;
+    acc[stateKey] = params[key];
     return acc;
   }, {});
 };

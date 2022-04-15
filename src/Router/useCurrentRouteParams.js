@@ -1,5 +1,9 @@
 import useRouteStore from "./store";
-import { getCurrentUrlQueryParams } from "./utils";
+import {
+  getCurrentUrlQueryParams,
+  mapParamsToStateValues,
+  reverseVarMap,
+} from "./utils";
 
 /**
  * Pulls a state object based on the current query parameters.
@@ -8,10 +12,8 @@ import { getCurrentUrlQueryParams } from "./utils";
 function useCurrentRouteParams() {
   const params = getCurrentUrlQueryParams();
   const varMap = useRouteStore((state) => state.varMap);
-  return Object.keys(varMap).reduce((acc, key) => {
-    if (params[varMap[key]]) acc[key] = params[varMap[key]];
-    return acc;
-  }, {});
+  const result = mapParamsToStateValues(params, varMap);
+  return result;
 }
 
 export default useCurrentRouteParams;
