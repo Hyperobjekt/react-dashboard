@@ -1,25 +1,224 @@
 # Configuration
 
-## Types
+The configuration object provides the foundation for the dashboard. It can be a local JSON object, or a collection of remote JSON / CSV files.
 
-### App
+See the following files for examples:
 
-### Region
+- [demo/local.config.json](demo/local.config.json)
+- [demo/remote.config.json](demo/remote.config.json)
 
-### Metrics
+> NOTE: using CSV files for configuration is not yet available.
 
-### Subgroups
+## App Configuration (`app`)
 
-### Data
+Configuration under the `app` key contains default settings for the dashboard. You can also add your own properties to the app configurationand access them using `useAppConfig("myCustomProperty")`.
 
-### Map
+- `default_choropleth_colors`:
+  - An array of color strings to use for choropleth layers OR a string value for one of the color schemes from [d3-scale-chromatic](https://observablehq.com/@d3/color-schemes)
+- `default_bubble_colors`
+  - An array of color strings to use for choropleth layers OR a string value for one of the color schemes from [d3-scale-chromatic](https://observablehq.com/@d3/color-schemes)
+- `default_region`:
+  - The default region to show data for
+- `default_choropleth_metric`:
+  - The default metric to use for choropleth layers (or `null` if not using choropleth layers)
+- `default_bubble_metric`:
+  - The default metric to use for bubble layers (or `null` if not using bubble layers)
+- `default_subgroup`:
+  - The default subgroup to show data for (or `null` if subgroups are not used.)
+- `default_year`:
+  - The default year to show data for (or `null` if years are not used.)
+- `default_viewport`:
+  - `zoom`: default zoom level for the map
+  - `center`: [longitude, latitude] of the center of the map
+- `hover_color`:
+  - The color to use for the hover state on the map
+- `location_colors`:
+  - An array of color strings to use for selected locations.
+- `years`:
+  - the years available for the data set (or empty array if only showing one year)
 
-#### Sources
+**Example app configuration:**
 
-#### Layers
+```json
+{
+  "default_choropleth_colors": "YlGnBu",
+  "default_bubble_colors": "#f00",
+  "default_region": "states",
+  "default_choropleth_metric": "ef",
+  "default_bubble_metric": null,
+  "default_subgroup": null,
+  "default_year": null,
+  "default_viewport": {
+    "center": [-98.5795, 39.8283],
+    "zoom": 3.5
+  },
+  "hover_color": "#f00",
+  "location_colors": ["#1b9e77", "#d95f02", "#7570b3"],
+  "years": []
+}
+```
 
-### Scales
+### Associated Hooks
 
-## Store
+- `useAppConfig(key: string)` => `any`  
+  Returns the value for the given key.
 
-## Loading Configs
+## Metric Configuration (`metrics`)
+
+Metric configuration determines which data options are available to the dashboard. A metric configuration entry contains:
+
+- `id`
+  - a unique string identifier for the metric. this should correspond to the column name or property in the data set.
+- `format` (optional)
+  - a format string to use for the metric. See the [Formatters documentation](./src/Formatters/README.md) for available options. If no format is provided, the values for the metric will display as-is.
+  - default: decimal
+- `short_format` (optional)
+  - a secondary format string for the metric that formats values in a short form for the metric.
+
+You can also include any additional metric-related properties you want to use in the dashboard (e.g. a source, category, etc.)
+
+All metric names, descriptions, and units are defined in the language configuration.
+
+**Example metric configuration:**
+
+```json
+[
+  {
+    "id": "ef",
+    "format": "integer",
+    "short_format": "integer_short"
+  },
+  {
+    "id": "efr",
+    "format": "percent"
+  }
+]
+```
+
+### Associated Hooks
+
+#### `useMetricConfig([key: string|string[]])` => `Metric|Metric[]`
+
+Provide no arguments to return an array of all available metrics, an array of metric IDs for a subset of metrics, or a single ID string to return a metric.
+
+The returned metric objects include the values in the metric config along with:
+
+- `name`: the name of the metric from the i18n store (under the key `METRIC_{{ID}}`)
+- `hint`: a hint for the metrics from the i18n store (under the key `HINT_{{ID}}`)
+- `unit`: a unit of measurement from the i18n store (under the key `UNIT_{{ID}}`)
+- `formatter`: a formatter function for the metric, based on the `format` property in the metric config
+- `shortFormatter`: a formatter function for the metric, based on the `short_format` property in the metric config
+
+## Region Configuration (`regions`)
+
+Region configuration specifies which regions are available to the dashboard (e.g. counties, zip codes, etc.). A region configuration entry contains:
+
+- `id`
+  - a unique string identifier for the region.
+- `min_zoom`
+  - the minimum zoom level to show the region on the map
+- `max_zoom`
+  - the maximum zoom level to show the region on the map
+- `metrics` (optional)
+  - an array of metric IDs that are availabe for this region
+
+All region names are specified in the language configuration.
+
+## Subgroup Configuration (`subgroups`)
+
+Subgroups are used to group data by a specific category. For example, you might have a data set where metric data broken down by different groupings (e.g. age, race, gender, etc). Each subgroup configuration entry contains:
+
+- `id`
+  - a unique string identifier for the subgroup.
+
+## Scales Configuration (`scales`)
+
+Scales configuration determines the colors and ranges to use for choropleth and bubble layers. A scale configuration entry contains:
+
+```json
+{
+  "id": "default",
+  "region_id": "*",
+  "metric_id": "*",
+  "subgroup_id": "*",
+  "year": "*",
+  "type": "choropleth",
+  "scale": "continuous",
+  "extent_data": "/assets/data/{{region_id}}-extents.csv",
+  "extent_min_key": "min",
+  "extent_max_key": "max"
+}
+```
+
+## Map Sources Configurations (`mapSources`)
+
+Map sources are used by the map layers.
+
+- `id`
+  - identifier for the source
+- `region_id`
+  - an identifier for the region that this map source is associated with. Use `"*"` to use this layer for all regions.
+- `metric_id`
+  - an identifier for the metric that this map source is associated with. Use `"*"` to use this layer for all metrics.
+- `subgroup_id`
+  - an identifier for the subgroup that this map source is associated with. Use `"*"` to use this layer with all subgroups.
+- `year`
+  - the year that this map layer is associated with. Use `"*"` to use this layer for all years.
+- `source_url`
+  - url to the data source (either tileset or geojson)
+- `source_type`
+  - type of source (e.g. `"geojson"` or `"vector_tiles"`). corresponds to mapboxgl source types.
+
+```json
+{
+  "id": "states_choropleth",
+  "region_id": "states",
+  "metric_id": "*",
+  "subgroup_id": "*",
+  "year": "*",
+  "source_url": "https://spi-tilesets.s3.us-west-2.amazonaws.com/v0.0.1/states/{z}/{x}/{y}.pbf",
+  "source_type": "vector_tiles"
+}
+```
+
+## Map Layers Configuration (`mapLayers`)
+
+Map layers configuration specifies which layers will be shown on the map. A map layer configuration entry contains:
+
+- `id`
+  - identifier for the map layer
+- `region_id`
+  - an identifier for the region that this map layer is associated with. Use `"*"` to use this layer for all regions.
+- `metric_id`
+  - an identifier for the metric that this map layer is associated with. Use `"*"` to use this layer for all metrics.
+- `subgroup_id`
+  - an identifier for the subgroup that this map layer is associated with. Use `"*"` to use this layer with all subgroups.
+- `year`
+  - the year that this map layer is associated with. Use `"*"` to use this layer for all years.
+- `type`
+  - type of layer, either `"choropleth"` or `"bubble"`
+- `source_id`
+  - identifier for the source
+- `source_layer`
+  - name of the layer in the source data (vector tiles only)
+- `min_zoom` (optional)
+  - minimum zoom level to show the layer
+- `max_zoom` (optional)
+  - maximum zoom level to show the layer
+
+**Example map layer configuration entry**
+
+```json
+{
+  "id": "states_choropleth",
+  "region_id": "states",
+  "metric_id": "*",
+  "subgroup_id": "*",
+  "year": "*",
+  "type": "choropleth",
+  "source_id": "states_choropleth",
+  "source_layer": "states",
+  "min_zoom": 1,
+  "max_zoom": 8
+}
+```

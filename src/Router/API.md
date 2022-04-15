@@ -1,3 +1,29 @@
+## Constants
+
+<dl>
+<dt><a href="#DEFAULT_VARMAP">DEFAULT_VARMAP</a></dt>
+<dd><p>Default mapping of state keys to route params</p>
+</dd>
+<dt><a href="#reverseVarMap">reverseVarMap</a> ⇒ <code>object</code></dt>
+<dd><p>Reverses the state key -&gt; route param mapping</p>
+<p>Example:</p>
+<pre><code class="language-js">const varMap = { choroplethMetric: &quot;c&quot; };
+const result = reverseVarMap(varMap);
+// result = { c: &quot;choroplethMetric&quot; }
+</code></pre>
+</dd>
+<dt><a href="#mapParamsToStateValues">mapParamsToStateValues</a> ⇒ <code>object</code></dt>
+<dd><p>Takes route params and the mapping of state key -&gt; route param and returns
+an object with state values based on the param</p>
+<p>Example:</p>
+<pre><code class="language-js">const varMap = { choroplethMetric: &quot;c&quot; };
+const params = { c: &quot;pop&quot; };
+const result = mapParamsToStateValues(params, varMap);
+// result = { choroplethMetric: &quot;pop&quot; }
+</code></pre>
+</dd>
+</dl>
+
 ## Functions
 
 <dl>
@@ -38,7 +64,7 @@ const [queryParams, setQueryParams] = useRouteStore((state) =&gt; [state.queryPa
 <dt><a href="#setUrlQueryParams">setUrlQueryParams(values)</a> ⇒ <code>void</code></dt>
 <dd><p>Sets the query params with the provided values.</p>
 </dd>
-<dt><a href="#mapStateToQueryParams">mapStateToQueryParams(state, varMap)</a> ⇒ <code>object</code></dt>
+<dt><a href="#mapStateToQueryParams">mapStateToQueryParams(options)</a> ⇒ <code>object</code></dt>
 <dd><p>Takes a state object and maps it to a query params object</p>
 </dd>
 </dl>
@@ -49,6 +75,53 @@ const [queryParams, setQueryParams] = useRouteStore((state) =&gt; [state.queryPa
 <dt><a href="#RouteState">RouteState</a> : <code>object</code></dt>
 <dd></dd>
 </dl>
+
+<a name="DEFAULT_VARMAP"></a>
+
+## DEFAULT\_VARMAP
+Default mapping of state keys to route params
+
+**Kind**: global constant  
+<a name="reverseVarMap"></a>
+
+## reverseVarMap ⇒ <code>object</code>
+Reverses the state key -> route param mapping
+
+Example:
+```js
+const varMap = { choroplethMetric: "c" };
+const result = reverseVarMap(varMap);
+// result = { c: "choroplethMetric" }
+```
+
+**Kind**: global constant  
+**Returns**: <code>object</code> - route param -> state key mapping  
+
+| Param | Type |
+| --- | --- |
+| varMap | <code>object</code> | 
+
+<a name="mapParamsToStateValues"></a>
+
+## mapParamsToStateValues ⇒ <code>object</code>
+Takes route params and the mapping of state key -> route param and returns
+an object with state values based on the param
+
+Example:
+```js
+const varMap = { choroplethMetric: "c" };
+const params = { c: "pop" };
+const result = mapParamsToStateValues(params, varMap);
+// result = { choroplethMetric: "pop" }
+```
+
+**Kind**: global constant  
+**Returns**: <code>object</code> - state values  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>\*</code> | values of route parameters |
+| varMap | <code>\*</code> | an object of state key -> route param key |
 
 <a name="useDebouncedEffect"></a>
 
@@ -125,7 +198,7 @@ Sets the query params with the provided values.
 
 <a name="mapStateToQueryParams"></a>
 
-## mapStateToQueryParams(state, varMap) ⇒ <code>object</code>
+## mapStateToQueryParams(options) ⇒ <code>object</code>
 Takes a state object and maps it to a query params object
 
 **Kind**: global function  
@@ -133,8 +206,9 @@ Takes a state object and maps it to a query params object
 
 | Param | Type | Description |
 | --- | --- | --- |
-| state | [<code>RouteState</code>](#RouteState) | current state for the dashboard |
-| varMap | <code>object</code> | a mapping from state names to query param names. |
+| options | <code>object</code> |  |
+| options.state | [<code>RouteState</code>](#RouteState) | current state for the dashboard |
+| options.varMap | <code>object</code> | a mapping from state names to query param names. |
 
 <a name="RouteState"></a>
 
