@@ -30,6 +30,7 @@
     "default_bubble_metric": "efr",
     "default_subgroup": "",
     "default_year": "2018",
+    "default_lang": "en",
     "default_viewport": {
       "center": [-98.5795, 39.8283],
       "zoom": 3.5
@@ -293,6 +294,41 @@
       "REGION_TRACTS": "Tracts",
       "REGION_BGS": "Block Groups",
       "SUBGROUP_ALL": "All"
+    },
+    "es": {
+      "METRIC_E": "es - Eviction Judgments",
+      "METRIC_ER": "es - Eviction Judgment Rate",
+      "METRIC_EF": "es - Eviction Filings",
+      "METRIC_EFR": "es - Eviction Filing Rate",
+      "METRIC_T": "es - Households Threatened",
+      "METRIC_TR": "es - Households Threatened Rate",
+      "METRIC_P": "es - Population",
+      "METRIC_PR": "es - Poverty Rate",
+      "METRIC_PRO": "es - Percent Rent Occupied",
+      "METRIC_MGR": "es - Median Gross Rent",
+      "METRIC_MPV": "es - Median Property Value",
+      "METRIC_MHI": "es - Median Household Income",
+      "METRIC_RB": "es - Rent Burden",
+      "METRIC_PA": "es - Percent Asian",
+      "METRIC_PAI": "es - Percent American Indian",
+      "METRIC_PAA": "es - Percent Black",
+      "METRIC_PH": "es - Percent Hispanic",
+      "METRIC_PNP": "es - Percent Pacific Islander",
+      "METRIC_PM": "es - Percent Multiple Races",
+      "METRIC_PO": "es - Percent Other",
+      "METRIC_PW": "es - Percent White",
+      "DESC_E": "es - Represents the number of evictions that have resulted in eviction judgment.",
+      "DESC_ER": "es - Represents the number of eviction judgments per 100 renters.",
+      "DESC_EF": "es - Represents the number of eviction filings.",
+      "DESC_EFR": "es - Represents the number of eviction filings filed by the state per 100 renters.",
+      "UNIT_ER": "es - per 100 renters",
+      "UNIT_EFR": "es - per 100 renters",
+      "REGION_STATES": "es - States",
+      "REGION_COUNTIES": "es - Counties",
+      "REGION_CITIES": "es - Cities",
+      "REGION_TRACTS": "es - Tracts",
+      "REGION_BGS": "es - Block Groups",
+      "SUBGROUP_ALL": "es - All"
     }
   }
 }
