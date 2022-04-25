@@ -36,6 +36,20 @@ export function setUrlQueryParams(values) {
  */
 
 /**
+ * Maps an array of GeoJSON features to a string of GEOIDs for the route.
+ * @function
+ * @param {GeoJSONFeature} features
+ * @returns {string}
+ */
+const _mapFeaturesToString = (features) => {
+  if (!Array.isArray(features) || features.length === 0) return undefined;
+  return features
+    .filter((f) => Boolean(f.properties?.GEOID))
+    .map((f) => f.properties.GEOID)
+    .join("-");
+};
+
+/**
  * Takes a state object and maps it to a query params object
  * @function
  * @param {object} options
@@ -43,13 +57,17 @@ export function setUrlQueryParams(values) {
  * @param {object} options.varMap a mapping from state names to query param names.
  * @returns {object} query params to set for the route
  */
-export const mapStateToQueryParams = ({ state = {}, varMap } = {}) => {
-  // map locations to their ids
-  if (state.locations) {
-    state.locations = state.locations.map((f) => f.properties.GEOID).join("-");
-  }
+export const mapStateToQueryParams = ({
+  state = {},
+  varMap,
+  mapFeaturesToString = _mapFeaturesToString,
+} = {}) => {
+  // pull out locations for individual processing
+  const { locations, ...newState } = state;
+  if (state.locations?.length)
+    newState["locations"] = mapFeaturesToString(state.locations);
   // map all of the parameter values to names in the var map
-  return Object.keys(state).reduce((acc, key) => {
+  return Object.keys(newState).reduce((acc, key) => {
     const value = state[key];
     // only add the param if it has a value
     if (value) {
