@@ -6,7 +6,7 @@ import useRouteStore from "./store";
 import useDashboardStore from "../store";
 import { useLocationStore } from "../Locations";
 import { mapStateToQueryParams, setUrlQueryParams } from "./utils";
-
+import { useLangStore } from "../i18n";
 /**
  * Helper hook to debounce an effect.
  */
@@ -48,6 +48,9 @@ const QueryParamRouter = ({ varMap: varMapOverride, updateParams }) => {
     }),
     shallow
   );
+  const language = useLangStore((state) => state.language);
+  const langDict = useLangStore((state) => state.dict);
+  const hasMultipleLanguages = Object.keys(langDict).length > 1;
   // pulls the view state from the map store ({zoom, latitude, longitude})
   const viewState = useMapStore((state) => state.viewState);
   // pull the current locations from the map store
@@ -74,6 +77,7 @@ const QueryParamRouter = ({ varMap: varMapOverride, updateParams }) => {
         longitude: longitude?.toFixed(2),
         locations: selected,
       };
+      if (hasMultipleLanguages) state.lang = language;
       const mappedParams = mapStateToQueryParams({ state, varMap });
       const newParams =
         typeof updateParams === "function"
@@ -82,7 +86,16 @@ const QueryParamRouter = ({ varMap: varMapOverride, updateParams }) => {
       setQueryParams(newParams); // set in the route store
       setUrlQueryParams(newParams); // set in the url
     },
-    [dashboardState, viewState, setQueryParams, varMap, selected, updateParams],
+    [
+      dashboardState,
+      language,
+      hasMultipleLanguages,
+      viewState,
+      setQueryParams,
+      varMap,
+      selected,
+      updateParams,
+    ],
     1000
   );
 

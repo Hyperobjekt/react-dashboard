@@ -14,6 +14,7 @@ export const DEFAULT_VARMAP = {
   latitude: "lat",
   longitude: "lon",
   locations: "l",
+  lang: "lang",
 };
 
 /**
