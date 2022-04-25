@@ -7,13 +7,15 @@ The `useSetLang` hook is used to set the language for the application. You can p
 **Example 1:** set Spanish language lookup and set the active language to Spanish
 
 ```js
-useSetLang("es", { TITLE: "Título", SUBTITLE: "Subtítulo" });
+const setLanguage = useSetLanguage();
+setLanguage("es", { TITLE: "Título", SUBTITLE: "Subtítulo" });
 ```
 
 **Example 2:** switch language to English
 
 ```js
-useSetLang("en");
+const setLanguage = useSetLang();
+setLanguage("en");
 ```
 
 > Note: this assumes that the `en` language file has been loaded or already added.
@@ -25,10 +27,11 @@ Language dictionaries are key / value pairs that map an identifier to a string i
 **Example 1:** loading multiple language dictionaries
 
 ```js
+const loadLanguage = useLoadLanguage();
 // JSON file should contain an object with key / value pairs
-useLoadLang("en", "https://example.com/en.json");
+loadLanguage("en", "https://example.com/en.json");
 // CSV file should contain "key" and "value" columns
-useLoadLang("en", "https://example.com/es.csv");
+loadLanguage("en", "https://example.com/es.csv");
 ```
 
 ## Using language strings
@@ -52,7 +55,8 @@ const [title, subheading] = useLang(["TITLE", "SUBHEADING"]);
 If an object is passed along as a second argument, the values will be interpolated into the string anywhere a corresponding key is found wrapped in double curly braces.
 
 ```js
-useSetLang("en", { SUMMARY_LABEL: "The data below is for {{date}}." });
+const setLanguage = useSetLanguage();
+setLanguage("en", { SUMMARY_LABEL: "The data below is for {{date}}." });
 const summaryLabel = useLang("SUMMARY_LABEL", { date: "January 18, 2020" });
 // resulting string: "The data below is for January 18, 2020."
 ```

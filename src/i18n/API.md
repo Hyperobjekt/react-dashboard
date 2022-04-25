@@ -19,11 +19,11 @@ template format.</p>
 <dt><a href="#useLangObject">useLangObject(ids, options)</a> ⇒ <code>object</code></dt>
 <dd><p>Return lang entries for a single id or array of ids</p>
 </dd>
-<dt><a href="#useLoadLang">useLoadLang(lang, url)</a> ⇒ <code>void</code></dt>
-<dd><p>Loads a remote language dictionary into the store from the provided URL.</p>
+<dt><a href="#useLoadLanguage">useLoadLanguage()</a> ⇒ <code>function</code></dt>
+<dd><p>Returns a function to load a remote language dictionary into the store from the provided URL.</p>
 </dd>
-<dt><a href="#useSetLang">useSetLang(lang, langDict)</a> ⇒ <code>void</code></dt>
-<dd><p>Sets the language dictionary for the given language</p>
+<dt><a href="#useSetLanguage">useSetLanguage()</a> ⇒ <code>function</code></dt>
+<dd><p>Returns a function to set the language dictionary for the given language</p>
 </dd>
 <dt><a href="#loadLanguage">loadLanguage(language, url)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Fetch a language file from JSON or CSV. CSV should have &quot;key&quot; and &quot;value&quot; columns.
@@ -91,30 +91,20 @@ Return lang entries for a single id or array of ids
 | options.prefix | <code>string</code> | prefix to prepend to each of the ids |
 | options.context | <code>object</code> | context to use to when interpolating the string |
 
-<a name="useLoadLang"></a>
+<a name="useLoadLanguage"></a>
 
-## useLoadLang(lang, url) ⇒ <code>void</code>
-Loads a remote language dictionary into the store from the provided URL.
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| lang | <code>string</code> | corresponding language ID |
-| url | <code>string</code> | url of JSON language dictionary |
-
-<a name="useSetLang"></a>
-
-## useSetLang(lang, langDict) ⇒ <code>void</code>
-Sets the language dictionary for the given language
+## useLoadLanguage() ⇒ <code>function</code>
+Returns a function to load a remote language dictionary into the store from the provided URL.
 
 **Kind**: global function  
+**Returns**: <code>function</code> - (language: string, url: string|object) => void  
+<a name="useSetLanguage"></a>
 
-| Param | Type | Description |
-| --- | --- | --- |
-| lang | <code>string</code> | language identifier |
-| langDict | <code>object</code> | object containing key value language strings |
+## useSetLanguage() ⇒ <code>function</code>
+Returns a function to set the language dictionary for the given language
 
+**Kind**: global function  
+**Returns**: <code>function</code> - (language: string, [dict: object]) => void  
 <a name="loadLanguage"></a>
 
 ## loadLanguage(language, url) ⇒ <code>Promise</code>
