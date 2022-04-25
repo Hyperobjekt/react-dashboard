@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.3.1] - 2022-04-25
+
+- fix: do not mutate state value when mapping query params
+- fix: use proper sources for bubble metrics
+
 ## [1.3.0] - 2022-04-25
 
 - fix: set language on app load
