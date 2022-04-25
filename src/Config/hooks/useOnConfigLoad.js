@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import useDashboardStore from "../../store";
 import { useMapStore } from "@hyperobjekt/mapgl";
+import { useLangStore } from "../../i18n";
 
 /**
  * Returns a callback for setting default map state and dashboard state based
@@ -12,11 +13,13 @@ function useOnConfigLoad() {
   const setValues = useDashboardStore((state) => state.set);
   // setter for map viewport (zoom, lat, lon)
   const setViewState = useMapStore((state) => state.setViewState);
+  // setter for language
+  const setLanguage = useLangStore((state) => state.setLanguage);
 
   return useCallback(
     ({ config, defaultValues }) => {
       // extract non-dashboard state from the values
-      const { zoom, latitude, longitude, locations, ...dashboardState } =
+      const { zoom, latitude, longitude, locations, lang, ...dashboardState } =
         defaultValues;
       // create an object with existing dashboard state values
       const dashboardValues = [
@@ -40,6 +43,7 @@ function useOnConfigLoad() {
           latitude: Number(latitude),
           longitude: Number(longitude),
         });
+      lang && setLanguage(lang);
       return Promise.resolve({ config, defaultValues });
     },
     [setValues, setViewState]

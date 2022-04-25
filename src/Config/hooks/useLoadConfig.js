@@ -21,13 +21,24 @@ export default function useLoadConfig() {
       // load languages
       const langPromises = Object.keys(lang).map((key) => {
         const url = lang[key];
-        return loadLanguageDict(key, url);
+        return loadLanguageDict(key, url).then((dict) => {
+          return {
+            type: "lang",
+            lang: key,
+            dict,
+          };
+        });
       });
       // combine promises and set ready once all have resolved.
       return Promise.all([configPromises, langPromises].flat()).then(
         (configs) => {
           return configs.reduce((acc, config) => {
             if (!config || !config.type) return acc;
+            if (config.type === "lang" && !acc["lang"]) {
+              acc["lang"] = {};
+              acc["lang"][config.lang] = config.dict;
+              return acc;
+            }
             acc[config.type] = config.config;
             return acc;
           }, {});
