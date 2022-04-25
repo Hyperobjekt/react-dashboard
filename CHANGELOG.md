@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.0] - 2022-04-25
+
+- fix: set language on app load
+- refactor: i18n hooks return callback functions now. rename for better readability
+- feat: update router to include language
+
 ## [1.2.0 / 1.2.1] - 2022-04-15
 
 - refactor: replace `mapStateToParams` with `updateParams` prop on `<QueryParamRouter>`
