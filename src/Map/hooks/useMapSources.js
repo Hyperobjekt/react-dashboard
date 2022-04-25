@@ -14,7 +14,7 @@ export default function useMapSources() {
     ...restContext,
   });
   const bubbleSources = useMapSourceConfig({
-    metric_id: choroplethMetric,
+    metric_id: bubbleMetric,
     ...restContext,
   });
   return useMemo(() => {
